@@ -1,0 +1,115 @@
+#!/usr/bin/perl
+
+use warnings;
+use strict;
+
+use Getopt::Long;
+
+my $ME = $0; $ME =~ s{.*/}{};
+sub error($);
+
+my %ARG = (
+    ext  => "",
+    cols => 5,
+);
+
+my @options;
+my $level = 0;
+
+sub usage {
+    print <<Usage;
+Usage: $ME: [options] file
+
+
+Options:
+    --cols <num>  Make index table <num> cols wide. Default: $ARG{cols}
+    --ext  <ext>  If modifying in-place then make backups with this extension
+    --help        Show this help
+    --in-place    Modify files in-place
+
+Examples:
+    cat file.html | $ME > new.html
+    $ME file.html > new.html
+    $ME -i -e .bak file.html
+
+Usage
+    exit 0;
+}
+
+my @orig_args = ( grep { $_ !~ /^--?[ie]/} @ARGV);
+
+#@ARGV or usage();
+GetOptions(\%ARG, qw/help in-place ext=s test start=i/);
+
+$ARG{ext} and $ARG{ext} !~ m/^\./ and $ARG{ext} = ".$ARG{ext}";
+
+$ARG{"in-place"} || $ARG{ext} and do {
+    @ARGV or error "Must provide filename(s) on command line for --in-place.";
+    exec "/usr/bin/perl","-i$ARG{ext}", $0, @orig_args;
+};
+
+
+while (<>) {
+    m{<dl} and $level++;
+    m{</dl} and $level--;
+    $level == 1 and s/<dt>([\w=]+)/<dt id="option.$1">$1/ and do {
+        push @options, $1;
+        print;
+        next;
+    };
+
+    m/<div id="last-div"/i and do {
+        print option_index( $ARG{cols}, \@options);
+        next;
+    };
+
+    print;
+
+}
+
+exit 0;
+
+sub option_index {
+    my ($cols, $options) = @_;
+    my @out;
+    my $tot  = @$options;
+    my @sorted = (sort @$options);
+
+    my $rows = int($tot / $cols);
+    my $rem  = $tot % $cols;
+    $rem > 0 and $rows++;
+
+    push @out, qq{<table class="option-index" border="0">\n};
+    for my $row (1..$rows) {
+        push @out, qq{<tr>\n};
+        for my $col (1..$cols) {
+            my $i = ($row - 1) + $rows * ($col - 1);
+            $i >= $tot and next;
+            my $opt = $sorted[$i];
+            my $nam = $opt;
+            push @out, qq{<td><a href="#option.$opt">$nam</a></td>\n};
+        }
+        push @out, qq{</tr>\n};
+    }
+    push @out, qq{</table>\n};
+
+    return @out;
+
+}
+
+sub option_index_old {
+    my $options = shift;
+    my @out;
+    for my $opt (sort @$options) {
+        my $nam = $opt;
+        push @out, qq{<a href="#$opt">$nam</a><br/>\n};
+    }
+
+    return @out;
+}
+
+sub error($) {
+    my $msg = shift;
+    die "$ME: $msg\n";
+}
+

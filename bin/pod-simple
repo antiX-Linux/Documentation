@@ -1,0 +1,142 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Pod::Simple::XHTML;
+use Getopt::Long;
+
+
+my $TITLE;
+my $PROJECT = "antiX Documentation";
+
+GetOptions(
+    "title=s" => \$TITLE,
+    "project=s" => \$PROJECT,
+);
+
+@ARGV < 1 and die "Expected at least one pod file\n";
+
+for my $pod_file (@ARGV) {
+    $pod_file =~ m/\.pod$/ or do {
+        warn "File $pod_file does not appear to be a pod file\n";
+        next;
+    };
+
+    my $base = $pod_file;
+    $base =~ s=.*/|\.pod$==g;
+    my $html_file = "$base.html";
+
+    $base =~ s/_/ /g;
+    $TITLE ||= "$base - $PROJECT";
+
+    my $parser = Local::Pod::Simple::XHTML->new();
+    #$parser->perldoc_url_prefix("");
+    $parser->html_header(header($TITLE));
+    $parser->html_footer(footer());
+
+    $parser->index(1);
+    # $parser->backlink(1);
+    $parser->parse_file($ARGV[0]);
+
+}
+
+sub header {
+    my $title = shift;
+
+    return <<Header;}
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>$title</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+@{[nav_menu()]}
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+Header
+
+sub nav_menu {
+    return <<Nav_Menu;}
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+Nav_Menu
+
+sub footer {
+    return <<Footer;}
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    @{[`date +"%F %H:%M"`]}
+  </div>
+
+  <div id="footer-center">
+  $PROJECT
+  </div>
+
+</div>
+
+</body>
+</html>
+Footer
+
+package Local::Pod::Simple::XHTML;
+
+use Data::Dumper;
+use parent qw(Pod::Simple::XHTML);
+
+sub end_head1 {
+    my ($self) = @_;
+    $self->{scratch} =~ /^name$/i and return "";
+    return $self->SUPER::end_head1();
+}
+
+sub handle_text {
+    my ($self, $text) = @_;
+    defined $self->{in_file} and warn "FILE: $text\n";
+    defined $self->{in_head} and $self->{in_head} == 1 and do {
+        $text =~ /[a-z]/ or do {
+            $text = lc $text;
+            $text =~ s/\b([a-z])/\u$1/g;
+            #warn "$text\n";
+        };
+    };
+
+    $self->SUPER::handle_text($text);
+  }
+
+
+sub start_F { $_[0]{'scratch'} .= '<span class="file"><i>' }
+sub end_F   { $_[0]{'scratch'} .= '</i></span>' }
+
+
+1;
+
+package main;

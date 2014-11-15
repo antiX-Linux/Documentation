@@ -1,0 +1,161 @@
+=encoding utf8
+
+=head1 NAME
+
+desktop-defaults - Utility / wrapper to set and start default applications
+
+=head1 SYNOPSIS
+
+This program is a standalone utility or a wrapper depending on the 
+implementation. It is meant to allow the user to set an application as the 
+default application in only one spot for all applications. 
+
+=head1 How to Use
+
+To use run desktop-defaults-set and choose the appropiate .desktop files for 
+the programs that you would like to see as the default for each heading. After
+selecting the default programs, you can call them by running 
+desktop-defaults-run --ITEM
+
+=head1 Setting Defaults
+
+Run desktop-defaults-set.
+For each item choose the appropriate .desktop file.
+Normally these reside in /usr/share/applications... but the potentially could
+be anywhere in the system.
+ 
+Examples of such cases:
+
+=over
+
+=item Custom.desktop
+
+If you make a custom .desktop file ( utilizing the new "Personal" menu ) 
+you would be able to navigate to that directory and choose your 
+Custom.desktop file as the default.
+
+=item Custom applications
+
+If you install an custom application, home grown or packaged in another 
+method (usually apps in /opt). You can utilize a .desktop file that is 
+related to the applications. A common one is Firefox (/opt/firefox) for 
+default web browser.
+
+=back
+
+Press "OK" to set the defaults, "Cancel" to continue to use the global settings 
+(or older user settings).
+
+
+=head1 Running defaults
+
+Defaults can be run via the desktop-defaults-run program. However 
+desktop-defaults-set also attempt to change the mimetype files to allow 
+for your chosen application to work in your file manager as well for matching
+mime types.
+
+=head3 Options
+
+=over
+
+=item desktop-defaults-run -h
+
+View the help information (also displayed on this page via the following options)
+
+=item desktop-defaults-run -fm | --file-manager
+
+Run the default chosen file manager. 
+
+Please note that by default the file manager default matches the session chosen.
+So if rox-xxxx was choosen the default file manager will be rox. If space-xxxx was chosen, 
+the default file manager will be spacefm. If no icon manager was chosen, the default will 
+be the chosen one. This can be overridden with /etc/desktop-session/desktop-defaults.conf 
+(~/.desktop-session/desktop-defaults.conf for per user settings). 
+
+Setting 
+
+ OVERRIDE_SESSION_FM="X"
+
+To either 
+
+ OVERRIDE_SESSION_FM="true"
+
+to override the session selected file manager and use your choice only! OR
+
+ OVERRIDE_SESSION_FM="false"
+
+to follow the session selected file manager
+
+=item desktop-defaults-run -t | --terminal
+
+Run the default chosen terminal application
+
+=item desktop-defaults-run -e | --email 
+
+Run The default chosen email client (or webpage if custom .desktop setup)
+
+=item desktop-defaults-run -te | --text-editor
+
+Run the default chosen text editor
+
+=item desktop-defaults-run -b | --browser
+
+Run the default chosen web browser
+
+=item desktop-defaults-run -i | --images
+
+Run the default chosen image viewer
+
+=item desktop-defaults-run -v | --video
+
+Run the default chosen video player
+
+=item desktop-defaults-run -a | --audio
+
+Run the default chosen audio player
+
+=item desktop-defaults-run -r | --root
+
+Precede any of the above options to run the option as root user (requires gksu)
+Examples:
+
+ desktop-defaults-run -r -t 
+ desktop-defaults-run --root --terminal
+
+=item Extra command strings
+
+All options can take 2nd/3rd + option for when running a default. This 
+becomes particularily handy for things like when you want to open a 
+webpage with your default web browser (custom email.desktop file), or 
+open a file as root with your default text editor.
+
+Example:
+
+ desktop-defaults-run -b http://antix.freeforums.org
+
+open the forum in your default browser
+
+ desktop-defaults-run -r -b http://localhost:631 (B<Not recomended>)
+
+open the printer configuration in root browser
+
+ desktop-defaults-run -te ~/.desktop-session/desktop-defaults.conf
+
+open desktop-defaults.conf as user for user configuration
+
+ desktop-defaults-run -r -te /etc/desktop-session/desktop-defaults.conf
+
+open desktop-defaults.conf as root for global configuration
+
+
+=back 
+
+=head1 LICENSE
+
+All code is licensed under the 
+L<GPL-v3|https://www.gnu.org/copyleft/gpl.html> or later.
+
+=head1 COPYRIGHT
+
+Copyright 2014
+Dave for antiX L<http://antix.freeforums.org/>

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sed -e '/<h1 / a<div class="to-top-1"><a href="#">top</a></div>' \
+    -e '/<h2 / a<div class="to-top-2"><a href="#">top</a></div>'
+
+#sed -e '/<h1 / a<div class="to-top-1">[<a href="#">top</a>]</div>' \
+#    -e '/<h2 / a<div class="to-top-2">[<a href="#">top</a>]</div>'
+
+#    -e '/<h3 / a<span class="to-top-3">[<a href="#top">top</a>]</span>'

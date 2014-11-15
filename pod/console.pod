@@ -1,0 +1,136 @@
+=encoding utf8
+
+=head1 NAME
+
+The Linux Virtual Consoles -- a Quick Guide
+
+=head1 SYNOPSIS
+
+There are several text-only consoles available in Linux that function
+outside of graphical environments like X-Windows.  The default
+resolution is poor but if you use the C<vga> boot parameter to increase
+the resolution they become very useful.  It is standard to have six of
+these virtual consoles available.  Once you learn how to increase the
+resolution and navigate between consoles, they can be a power tool.
+
+=head1 Navigating the Consoles
+
+=head2 Arrow Keys and Function Keys
+
+The easiest way to move between virtual consoles is to use C<Alt-Left>
+and C<Alt-Right> to switch between adjacent consoles.  Use C<Alt-F1>
+through C<Alt-F6> to jump directly to a virtual console.  The
+C<Ctrl-Alt-Fn> combo also works.
+
+=head2 From the Command Line
+
+The C<chvt> command lets you switch from one virtual console to another.
+For example:
+
+ chvt 1
+
+will switch to the first virtual console which often has messages from
+when the system booted.  Of course, if you switch to a console that
+is not yet opened then you will have to use the arrow or function keys
+to get to a working one.
+
+=head2 To and From X-Windows
+
+If X-Windows has started then it usually starts in Virtual-Console-7.
+You can get to from Virtual-Console-6 with <Alt-Right> or from any
+virtual consoles with C<Alt-F7> or C<Ctrl-Alt-F7>.
+
+To get back to the virtual consoles from X-Windows, you I<must>
+use the C<Ctrl-Alt-Fn> combinations.  They other combinations
+will not work when you are in X-Windows.
+
+The C<chvt> command works from within X-Windows but you need to
+run it as root if you are in X-Windows.
+
+=head2 Inside of VirtualBox
+
+If you are running VirtualBox, use the I<Host> key (by default, this is
+the right C<Ctrl> key) combined with C<F1> to C<F7> to get to a virtual
+console (or back to X-Windows).  You can't use the C<Ctrl-Alt> combos
+because these will take you to the virtual consoles on the I<host
+system>.  Once you are in a virtual console in VirtualBox you can
+use the standard C<Alt-Left>, C<Alt-Right>, and C<Alt-Fn> combos.
+
+
+=head1 Scroll buffer
+
+Use C<Shift-PageUp> to see some of the lines that have scrolled off of
+the top of a virtual console.   Once you switch consoles, or switch to
+X-Windows, this information is lost.
+
+=head1 Select Theme
+
+Certain antiX kernels have the fbcondecor feature (sometimes called
+"splash") that lets you give the virtual consoles background images.
+
+In B<I<antiX-14>> you can use the C<splash-select> program inside
+of a virtual console to change the theme on the current console.
+
+=head1 Different Theme on each Console
+
+The C</sbin/splash-all> is called from C</etc/rc.local> to put
+a different theme on each virtual console on the Live system.
+You can select a different set of themes by passing them in as
+command line arguments. For example:
+
+  /sbin/spash-all 2:antiX-blue 3:antiX-rev-purple
+
+Will set the themes on the second and third virtual consoles.
+The themes are all under the C</etc/splash/> directory.
+
+=head1 Boot Parameters
+
+Boot parameters can be used to disable X-Windows and to set the
+resolution of the virtual consoles.
+
+=head2 The C<vga> Boot Parameter
+
+If you have a modern graphics card from certain manufacturers then the
+resolution of the virtual consoles may get automatically set to the
+maximum possible.  Here is a table of some VGA resolutions.  Not all
+resolutions are available on all systems.
+
+  Width   Height  VGA parameter
+   800      600        789
+  1024      640        877
+  1024      768        792
+  1152      720        872
+  1280      800        864
+  1280     1024        795
+  1440      900        867
+  1400     1050        834
+  1600     1200        799
+  1600     1200*       839
+
+The C<839> value is known to work in VirtualBox.  The C<799>
+has been published in several places but it does not work in
+VirtualBox and has not been tested by us in other situations.
+
+
+=head1 Special Features
+
+=over
+
+=item Mouse Support 
+
+You can enable mouse support in the virtual consoles with the gpm
+(general purpose mouse) service.
+
+=item Movies and Images
+
+You can display images and even watch movies in the virtual consoles
+when they have framebuffer support which is enabled with the C<vga> boot
+parameter.
+
+=back
+
+
+=head1 COPYRIGHT
+
+Copyright 1014
+BitJam for antiX L<http://antix.freeforums.org/>

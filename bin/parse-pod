@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+
+use strict;
+use warnings;
+
+my $parser = Local::MyPodParser->new;
+$parser->parse_file("make-fstab.pod");
+
+package Local::MyPodParser;
+use Data::Dumper;
+use parent qw(Pod::Simple::PullParser);
+
+sub get_token {
+  my $self  = shift;
+  my $token = $self->SUPER::get_token(@_);
+  
+  # do something with the token
+  print Data::Dumper::Dumper($token);
+  
+  return $token;
+}
+

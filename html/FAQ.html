@@ -1,0 +1,600 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FAQ - antiX Documentation</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+
+
+<ul id="index">
+  <li><a href="#Synopsis">Synopsis</a></li>
+  <li><a href="#Boot-LiveCD-USB">Boot LiveCD/USB</a>
+    <ul>
+      <li><a href="#Cant-get-to-bootloader">1) Can&#39;t get to bootloader</a>
+        <ul>
+          <li><a href="#Possible-reasons-why-you-cant-get-to-the-bootloader-menu">Possible reasons why you can&#39;t get to the bootloader menu</a></li>
+        </ul>
+      </li>
+      <li><a href="#Cant-find-the-linuxfs-file">2) Can&#39;t find the linuxfs file</a>
+        <ul>
+          <li><a href="#Solutions-for-finding-linuxfs-file">Solutions for finding linuxfs file</a></li>
+        </ul>
+      </li>
+      <li><a href="#Blank-screen-or-lose-video-sync-early-in-boot-process">3) Blank screen or lose video sync early in boot process</a></li>
+      <li><a href="#X-Windows-does-not-start">4) X-Windows does not start</a></li>
+    </ul>
+  </li>
+  <li><a href="#Boot-from-an-iso-file">Boot from an iso file</a></li>
+  <li><a href="#Sound-doesnt-Work">Sound doesn&#39;t Work</a>
+    <ul>
+      <li><a href="#Wrong-Sound-card-is-set-as-default">Wrong Sound card is set as default</a></li>
+      <li><a href="#Proprietary-drivers-or-firmware-need-to-be-installed">Proprietary drivers or firmware need to be installed</a></li>
+    </ul>
+  </li>
+  <li><a href="#Wireless-Networking">Wireless Networking</a></li>
+  <li><a href="#Change-the-Default-Window-Manager">Change the Default Window Manager</a></li>
+  <li><a href="#Youtube-Videos-Flash-">Youtube Videos (Flash)</a></li>
+  <li><a href="#Keyboard-variant-and-layout">Keyboard variant and layout</a></li>
+  <li><a href="#Screen-blanking">Screen blanking</a></li>
+  <li><a href="#USB-Automount">USB Automount</a>
+    <ul>
+      <li><a href="#USB-Automount-on-Live-systems">USB Automount on Live systems</a></li>
+      <li><a href="#USB-Automount-on-installed-systems">USB Automount on installed systems</a></li>
+    </ul>
+  </li>
+  <li><a href="#Set-the-Time">Set the Time</a>
+    <ul>
+      <li><a href="#Select-Timezone">Select Timezone</a></li>
+      <li><a href="#Set-System-Time-with-the-Command">Set System Time with the  Command</a></li>
+      <li><a href="#Select-UTC-or-Local-Time-for-Hardware-Clock">Select UTC or Local Time for Hardware Clock</a></li>
+      <li><a href="#Hardware-clock">Hardware clock</a></li>
+      <li><a href="#Time-drift">Time drift</a></li>
+    </ul>
+  </li>
+  <li><a href="#Keyboard-Layout">Keyboard Layout</a>
+    <ul>
+      <li><a href="#Set-up-the-selection-of-keyboard-layouts">Set up the selection of keyboard layouts</a></li>
+      <li><a href="#Select-a-particular-keyboard-layout">Select a particular keyboard layout</a></li>
+    </ul>
+  </li>
+  <li><a href="#Repair-Grub">Repair Grub</a></li>
+  <li><a href="#Persistence-Live-Remaster-and-Snapshot">Persistence, Live Remaster, and Snapshot</a></li>
+  <li><a href="#Create-LiveUSB-or-Frugal-Install">Create LiveUSB or Frugal Install</a></li>
+  <li><a href="#Printing">Printing</a></li>
+</ul>
+
+<p>Frequently Asked Questions about antiX Linux</p>
+
+<h1 id="Synopsis">Synopsis</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<dl>
+
+<dt><a href="#Boot-LiveCD-USB">Boot LiveCD/USB</a></dt>
+<dd>
+
+<p>******</p>
+
+</dd>
+<dt><a href="#Boot-from-an-iso-file">Boot from an iso file</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#Sound-doesnt-Work">Sound doesn&#39;t Work</a></dt>
+<dd>
+
+<p>**</p>
+
+</dd>
+<dt><a href="#Wireless-Networking">Wireless Networking</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#Change-the-Default-Window-Manager">Change the Default Window Manager</a></dt>
+<dd>
+
+<p>******</p>
+
+</dd>
+<dt><a href="#Youtube-Videos-Flash-">Youtube Videos (Flash)</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#USB-Automount">USB Automount</a></dt>
+<dd>
+
+<p>***</p>
+
+</dd>
+<dt><a href="#Set-the-Time">Set the Time</a></dt>
+<dd>
+
+<p>*****</p>
+
+</dd>
+<dt><a href="#Keyboard-Layout">Keyboard Layout</a></dt>
+<dd>
+
+<p>*****</p>
+
+</dd>
+<dt><a href="#Repair-Grub">Repair Grub</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#Persistence-Live-Remaster-and-Snapshot">Persistence, Live Remaster, and Snapshot</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#Create-LiveUSB-or-Frugal-Install">Create LiveUSB or Frugal Install</a></dt>
+<dd>
+
+</dd>
+<dt><a href="#Printing">Printing</a></dt>
+<dd>
+
+</dd>
+</dl>
+
+<h1 id="Boot-LiveCD-USB">Boot LiveCD/USB</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>The antiX LiveCD and LiveUSB boot just fine on many systems without any problem. There are four common problem areas described below. If this FAQ doesn&#39;t help you resolve your issue then please be clear about when in the boot process the problem occurred. For example, describe the last thing that was seen on the screen.</p>
+
+<h2 id="Cant-get-to-bootloader">1) Can&#39;t get to bootloader</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The bootloader should be the first thing you see after the Power-On Self Test (POST).</p>
+
+
+
+
+<span class="image">
+<a href="images/post.png" target="_blank">Example POST Screen</a>
+</span> Yours may be quite different.
+
+<p>The antiX bootloader has a black background with some stars and an image of the planet Earth.</p>
+
+
+
+
+<span class="image">
+<a href="images/boot-loader.jpg" target="_blank">Boot Loader Screen shot</a>
+</span>
+
+<h3 id="Possible-reasons-why-you-cant-get-to-the-bootloader-menu">Possible reasons why you can&#39;t get to the bootloader menu</h3>
+
+<dl>
+
+<dt>Can&#39;t select the LiveCD/USB as the boot device</dt>
+<dd>
+
+<p>Ask for help on how to get to the BIOS settings or the boot menu on your particular computer. Sometimes instructions flash by quickly during the Power-On Self Test.</p>
+
+</dd>
+<dt>You&#39;re trying to boot a LiveUSB on an Apple Mac computer</dt>
+<dd>
+
+<p>Use the LiveCD instead.</p>
+
+</dd>
+<dt>Booting in Secure Mode on a computer with UEFI</dt>
+<dd>
+
+<p>Switch to Legacy Boot Mode.</p>
+
+</dd>
+<dt>Defective LiveCD/USB</dt>
+<dd>
+
+<p>For a LiveCD, check the md5sum of the .iso file and of the LiveCD. For a LiveUSB or a LiveCD, see if it will boot on another machine.</p>
+
+</dd>
+</dl>
+
+<h2 id="Cant-find-the-linuxfs-file">2) Can&#39;t find the linuxfs file</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>This is the most common error when trying to boot the LiveCD/USB. When you get this error the screen looks something like:</p>
+
+<pre><code> Welcome to antiX-14 Killah P!
+ Current boot codes:
+     quiet antiX=MXL
+ Scan usb,cd devices.  Look for boot file(s) antiX/linuxfs
+ Filtered devices  /dev/sr0
+ Retry for 15 seconds ...............................
+
+ ====================================================================
+ Fatal Error
+ Could not find linuxfs file &quot;antiX/linuxfs&quot;
+ ====================================================================
+
+ --------------------------------------------------------------------
+     p = power off
+     r = reboot
+ --------------------------------------------------------------------</code></pre>
+
+
+
+
+<span class="image">
+<a href="images/boot-error-1.png" target="_blank">Boot Error Screen Shot</a>
+</span>
+
+<h3 id="Solutions-for-finding-linuxfs-file">Solutions for finding linuxfs file</h3>
+
+<p>Three files are needed to boot the live system, <span class="file"><i>vmlinuz</i></span>, the Linux kernel; <span class="file"><i>initrd.gz</i></span> the initial file system and boot script, and finally <span class="file"><i>linuxfs</i></span> which contains the entire compressed file system. The first two are found by the bootloader. The primary purpose of the initrd is to find that third file. If it can&#39;t be found, that usually means the device it is located on could not be created or mounted in the initrd.</p>
+
+<p>This is usually because either a driver is missing or, on older machines, a boot parameter is needed to let a modern kernel access older hardware. The most likely cure is a boot parameter.</p>
+
+<p>If none of the suggestions below work then please report the problem at the <a href="http://antix.freeforums.org/">antiX Forums</a>.</p>
+
+<dl>
+
+<dt>Need boot parameter</dt>
+<dd>
+
+<p>As the kernel evolves the boot parameters needed to get older hardware to work have changed. Here are four likely candidates.</p>
+
+<dl>
+
+<dt>acpi=off</dt>
+<dd>
+
+<p>This boot parameter is the most likely to work. You can set it by selecting <code>no acpi</code> in the <code>[F4 Options]</code> in the bootloader. Try this first.</p>
+
+</dd>
+<dt>acpi_use_timer_override=1</dt>
+<dd>
+
+<p>On some older systems the <code>acpi=off</code> option can disable the USB bus. Think of this option as a weaker form of <code>acpi=off</code> that will allow you to boot but won&#39;t disable the USB bus. Try this after you were able to boot with <code>acpi=off</code> to see if it allows more hardware to work.</p>
+
+<p><b><i>FIXME:</i></b> should we add this to the <code>[F4 Options]</code> menu?</p>
+
+</dd>
+<dt>pci=biosirq</dt>
+<dd>
+
+<p>This options is a work-around for a BIOS that is configured to only work with older versions of Windows. The proper solution is to go into the advanced BIOS settings and set <code>Installed OS</code> to <code>Other</code>.</p>
+
+</dd>
+<dt>nousb2</dt>
+<dd>
+
+<p>This parameter instructs the initrd to disable the usb-2 bus. It is only useful when trying to boot a LiveUSB on a few older systems.</p>
+
+<p><b><i>FIXME:</i></b> Is this still needed at all? I don&#39;t think it is.</p>
+
+</dd>
+</dl>
+
+</dd>
+<dt>Missing driver</dt>
+<dd>
+
+<p>It is possible that your hardware needs to use a module that is not being loaded automatically. The following boot parameter will load all modules that are available.</p>
+
+<dl>
+
+<dt>load=all</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>If this parameter is required to boot the please let us know so we can try to make sure the driver you need gets loaded automatically.</p>
+
+</dd>
+</dl>
+
+<h2 id="Blank-screen-or-lose-video-sync-early-in-boot-process">3) Blank screen or lose video sync early in boot process</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The next hurdle in the boot process is at a stage called <i>Kernel Mode Switch</i> or <i>Modeset</i>. This is when the kernel uses the same driver for th virtual consoles and X-Windows. When it works it allows for seamless switching between those two display modes. When it doesn&#39;t work, the computer is unusable. It only happens with certain graphics hardware and drivers. But switching to a different graphics driver won&#39;t solve a modeset problem because the modeset happens very early in the boot process, well before the time when normal graphics drivers are loaded.</p>
+
+<p>It is usually only a problem on older machines or machines where the monitor cannot support the video card at its highest resolutions. It usually happens a few seconds after the boot has started before much text has been written to the screen:</p>
+
+<pre><code> Welcome to antiX-14 Killah P!
+ Current boot codes:
+     quiet antiX=MXL
+ Scan usb,cd devices.  Look for boot file(s) antiX/linuxfs
+ Filtered devices  /dev/sr0
+ Mounted boot device. Mounted device /dev/sr0 at /live/boot-dev
+ The /init program took 1.23 seconds
+ INIT: version 2.88 booting
+ [info] Using makefile-style concurrent boot in runlevel S
+ [ ok ] Starting the hotplug events dispatcher: udevd.
+ [ ok ] Synthesizing the intial hotplug evens...done.
+ [....] Waiting for /dev to be fully populated..._</code></pre>
+
+
+
+
+<span class="image">
+<a href="images/kms-error.png" target="_blank">Modeset Error Screen Shot</a>
+</span>
+
+<p>The solution for this problem is in the <span style="white-space: nowrap;"><code>[F5 Video Mode]</code></span> menu in the bootloader. Select either <span style="white-space: nowrap;"><code>[F5 Video Mode]</code></span> --&gt; <code>safe</code> or <span style="white-space: nowrap;"><code>[F5 Video Mode]</code></span> --&gt; <code>vesa</code>.</p>
+
+<dl>
+
+<dt>safe</dt>
+<dd>
+
+<p>Disables <a href="https://wiki.archlinux.org/index.php/kernel_mode_setting">Kernel Mode Setting</a>. This should suffice to get you past this hurdle. You can still get good video performance when this option is used. The downside is there will be some flickering and a slight delay when you switch between X-Windows and the virtual consoles.</p>
+
+</dd>
+<dt>vesa</dt>
+<dd>
+
+<p>This is even safer than <code>safe</code> mode. In addition to disabling Kernel Mode Setting, it also forces use of the <code>vesa</code> driver when X-Windows starts. Do not expect good video performance when the <code>vesa</code> driver is used.</p>
+
+</dd>
+</dl>
+
+<h2 id="X-Windows-does-not-start">4) X-Windows does not start</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>This is usually caused by a problem with the video driver. Try the two <code>[F5 Video Mode]</code> options in the bootloader menu described in the section directly above. You will get better performance with the <code>safe</code> option but X-Windows is more likely to work if you use the <code>vesa</code> option.</p>
+
+<h1 id="Boot-from-an-iso-file">Boot from an iso file</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Sound-doesnt-Work">Sound doesn&#39;t Work</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>If you do not have a volume icon, the most likely reason is that the drivers for your card is not loaded. Some older, card and even some of the newest cards, are not supported by ALSA.</p>
+
+<h2 id="Wrong-Sound-card-is-set-as-default">Wrong Sound card is set as default</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>Computers often have more than one sound &quot;card&quot;. The term card means audio interface, not a physical card. For example, a usb sound dongle counts as a card. So does any <i>video</i> card that has HDMI output. That is because HDMI includes audio as well as video.</p>
+
+<p>You can see a list of of sound devices on your system with:</p>
+
+<pre><code> aplay -l</code></pre>
+
+<p>A shorter list of just the names of the devices is obtained with:</p>
+
+<pre><code> cat /proc/asound/card[0-9]*/id</code></pre>
+
+<p>Example:</p>
+
+<pre><code> cat /proc/asound/card[0-9]*/id
+ SB
+ NVidia</code></pre>
+
+<p>You can try using different sound cards by running <code>alsmixer</code></p>
+
+<h2 id="Proprietary-drivers-or-firmware-need-to-be-installed">Proprietary drivers or firmware need to be installed</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<h1 id="Wireless-Networking">Wireless Networking</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Change-the-Default-Window-Manager">Change the Default Window Manager</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>We use the SLiM display manager (the display manager offers you a graphical login and allows you to select a window manager) because it is small and fast and lightweight. But it is also light on features that many people have come to expect. In order to change the default window manager or to add a window manager to the list available via the <code>[F1]</code> key in the SLiM login screen, simply run:</p>
+
+<pre><code> update-default-desktop</code></pre>
+
+<p><b><i>FIXME:</i></b> Should there be a menu entry for <code>update-default-desktop</code>?</p>
+
+<p><b><i>FIXME:</i></b> This section will need to be updated if we use <code>desktop-session</code>.</p>
+
+<h1 id="Youtube-Videos-Flash-">Youtube Videos (Flash)</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Keyboard-variant-and-layout">Keyboard variant and layout</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Screen-blanking">Screen blanking</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="USB-Automount">USB Automount</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h2 id="USB-Automount-on-Live-systems">USB Automount on Live systems</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>On the Live system, the easiest way to enable USB automounting is in the bootloader <code>[F4 Options]</code> menu. Partitions get automounted under the <span class="file"><i>/media</i></span> directory. You have the following choices:</p>
+
+<dl>
+
+<dt>automount</dt>
+<dd>
+
+<p>Automatically mount usb sticks with they are plugged in. You still must unmount them before they are unplugged.</p>
+
+</dd>
+<dt>mount usb</dt>
+<dd>
+
+<p>In addition to automatically mounting usb sticks when they are plugged in, mount all usb sticks at boot time.</p>
+
+</dd>
+<dt>mount all</dt>
+<dd>
+
+<p>In addition to mounting usb sticks when they are plugged in and mounting all usb sticks at boot time, also mount all hard drive partitions at boot time.</p>
+
+</dd>
+</dl>
+
+<p><b>Note:</b> Even if no automounting is selected, the Live system will automatically create <span class="file"><i>fstab</i></span> entries and mountpoints under <span class="file"><i>/media</i></span> whenever a usb stick is plugged in. This makes it easy for you to mount usb sticks from within programs like <code>spacemFM</code> file manager. It also lets a normal user mount partitions directly from the command line.</p>
+
+<h2 id="USB-Automount-on-installed-systems">USB Automount on installed systems</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p><b><i>FIXME:</i></b> Need instructions for installed systems.</p>
+
+<h1 id="Set-the-Time">Set the Time</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>If your clock time is always wrong, it is due to one more more of the following issues. It is best to address them in this order otherwise you might have to backtrack.</p>
+
+<dl>
+
+<dt>Wrong Timezone</dt>
+<dd>
+
+</dd>
+<dt>Wrong System Time</dt>
+<dd>
+
+</dd>
+<dt>Wrong Selection of UTC versus Localtime</dt>
+<dd>
+
+</dd>
+</dl>
+
+<h2 id="Select-Timezone">Select Timezone</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>When you boot the LiveCD/USB before you install, you can select the timezone with the <code>F3 Timezone]</code> menu. The timezone will also get set if you select a language with the <code>[F2 Language]</code> menu. An explicit timezone will, of course, override a timezone that is associated with a language. This setting will carry over to when you install. You will also get a change to set the timezone in the graphic installer.</p>
+
+<p>If you want to set the timezone after you&#39;ve installed, the easiest thing (for <b>base</b> and <b>full</b> systems) is to use the <span class="file"><i>antiX Control Centre</i></span>.</p>
+
+<pre><code> antiX Control Center --&gt; System --&gt; Set Date and Time</code></pre>
+
+<p>For <b>core</b> systems or other systems that don&#39;t have the control centre, you can do this from the command line with:</p>
+
+<pre><code> sudo /usr/sbin/dpkg-reconfigure tzdata</code></pre>
+
+<p>Do this first. You should also be able to check the current value with</p>
+
+<pre><code> cat /etc/timezone</code></pre>
+
+<h2 id="Set-System-Time-with-the-Command">Set System Time with the <code>date</code> Command</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<h2 id="Select-UTC-or-Local-Time-for-Hardware-Clock">Select UTC or Local Time for Hardware Clock</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>Once you are sure the timezone is correct, you can work on setting your hardware clock. You must decide if you want your hardware clock set to Coordinated Universal Time (UTC) or local time. It is best to use UTC because this way it does not have to change if you move and change time zones. But if you are dual booting with a Windows system then you should leave your hardware clock set to local time and let Windows make the timezone and daylight savings time adjustments.</p>
+
+<p><b><i>NOTE:</i></b> If you use local time in your hardware clock then you and you are not dual booting with Windows then you will have to manually adjust for daylight savings time.</p>
+
+<p>You configure the hardware clock with the <code>hwclock</code> command. First do:</p>
+
+<pre><code> man hwclock </code></pre>
+
+<p>and then run:</p>
+
+<pre><code> sudo /sbin/hwclock --show</code></pre>
+
+<p>to see what it is set to. It always reports in local time which is why you need to first make sure your timezone is set correctly. Use:</p>
+
+<pre><code> sudo /sbin/hwclock --localtime</code></pre>
+
+<p>or</p>
+
+<pre><code>  sudo /sbin/hwclock --utc 
+  </code></pre>
+
+<p>depending on whether you want your hardware clock to be set to local time or UTC.</p>
+
+<p><b><i>ZZZZZZZZ</i></b></p>
+
+<h2 id="Hardware-clock">Hardware clock</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>Then, after you get your date command working via the sudo command you posted, you can use &quot;hwclock --systohc&quot; to set the hardware clock so it matches your system time. Again, you need the timezone and local-time/UTC choice set correctly first (although if you want to *assume* they are set correctly already then this is the only command you need to run to get your changes to the &quot;date&quot; command to stick. If you assumed incorrectly then you will likely get mysteriously screwed by DST a few times per year).</p>
+
+<h2 id="Time-drift">Time drift</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>Finally, if you are having problems with hwclock drift or if you are a perfectionist then you can install the <code>ntp</code> package which will use time servers on the net to keep your clock exactly on time. But you have to first go through the steps above before ntp will work correctly.</p>
+
+<h1 id="Keyboard-Layout">Keyboard Layout</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h2 id="Set-up-the-selection-of-keyboard-layouts">Set up the selection of keyboard layouts</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The easiest way to set the keyboard layout is with the <code>[F2 Language]</code> menu in the Live bootloader. In addition to setting the language, this will also set the keyboard layout and timezone. These settings will be automatically transfer when you install.</p>
+
+<p><b><i>FIXME:</i></b> Are the following instructions correct?</p>
+
+<p>If you want to choose your own custom selection of keyboard layouts or if you want to change the list of keyboard layouts that are accessible then you have to set the layouts manually. For example, let&#39;s say you want to be able to choose between French, Greek, and Spanish layouts. To get this change to happen immediately, run the following command:</p>
+
+<pre><code>  setxkbmap -layout fr,el,es</code></pre>
+
+<p>To make the change permanent so it will be remembered across reboots, edit (as root) the file <span class="file"><i>/etc/default/keyboard</i></span> and change the <code>XKBLAYOUT</code> line to be:</p>
+
+<pre><code> XKBLAYOUT=&quot;fr,el,es&quot;</code></pre>
+
+<h2 id="Select-a-particular-keyboard-layout">Select a particular keyboard layout</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The easiest way to select a keyboard layout is with the <code>fbxkb</code> application running in the system tray. It will display the flag associated with the language of the current layout. Click on the flag to cycle through the different layouts you have chosen in the previous step. This application can only handle up to four different layouts at the same time.</p>
+
+<p>If <code>fbxkb</code> is not available or if you just prefer to use the command line, you can select which keyboard layout to use with the <code>setxkbmap</code> program. For example, to set the current layout to French, use the command:</p>
+
+<pre><code> setxkblayout fr</code></pre>
+
+<p><b>Hint:</b> if you want to play around with this, first use this command to set the layout to one that you are comfortable with. Then if you set it to a layout that is confusing, you can use the &lt;Up-Arrow&gt; key to get back to the command that sets the layout to the one you are familiar with. The &lt;Up-Arrow&gt; and &lt;Enter&gt; keys are the same in all keyboard layouts.</p>
+
+<h1 id="Repair-Grub">Repair Grub</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Persistence-Live-Remaster-and-Snapshot">Persistence, Live Remaster, and Snapshot</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Create-LiveUSB-or-Frugal-Install">Create LiveUSB or Frugal Install</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h1 id="Printing">Printing</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    2014-11-13 12:59
+
+  </div>
+
+  <div id="footer-center">
+  antiX Documentation
+  </div>
+
+</div>
+
+</body>
+</html>
+
+

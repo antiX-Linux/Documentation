@@ -1,0 +1,3 @@
+#!/bin/bash
+
+sed -n -r '/=head1/ s/=head1\s+(.*[a-z].*)/=item L<\1|\/\1>\n/p' "$@"

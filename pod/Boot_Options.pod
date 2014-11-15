@@ -1,0 +1,666 @@
+=head1 NAME
+
+antiX Live Boot Parameters
+
+=head1 SYNOPSIS
+
+This document explains many of the boot parameters that are used
+by B<I<antiX>> Live systems.  Most users will get by just fine by making
+selections in the bootloader menus.  The boot menus provide a
+convenient GUI for setting some of the options documented here.
+Use the C<F12> key in the bootloader to see what boot options
+are selected by your current menu choices.
+ 
+=head1 Boot LiveCD/USB
+
+These options control how the Live media boots.  In particular the
+control where we look for the F<linuxfs> file.  The location of this
+file will be used for other Live features such as persistence and
+remastering.
+
+=head2 The Boot Device
+
+The primary job of Live initrd is to find the compressed file system
+called a I<squashfs> file.  For B<I<antiX>> and MX this file is normally
+named F<linuxfs>.   We need to find the device this file is on and find
+the file on that device.
+
+Normally we scan all cdrom (and dvd) and usb devices for that file.
+This default behavior can be modified with the following options.
+The easiest way to specify the boot device is the B<from> option
+which specifies what type of device to boot from.
+
+=over
+
+=item from=*
+
+The type of boot device.  Valid values B<cd hd usb>.  More than
+one is allowed.  The default is B<usb,cd> so by default we will
+only look at cdrom/dvd devices and usb devices to for the boot
+directory.
+
+=back
+
+You can also specify a device more specifically but giving a device name
+(like B<sda1>), a partition label, or a partition UUID.
+
+=over
+
+=item bdev=*
+
+The name of the boot device.  For example B<bdev=sda1>.
+
+=item blab
+
+The partition label of the boot device.  
+
+=item buuid
+
+The UUID of the boot device.
+
+=back 
+
+=head2 The Boot Directory
+
+By default, we look for the F<linuxfs> file and and persistence
+files in the F</antiX> directory on the boot device.   If you want
+to boot more than one Live system on the same device or if you
+want to do a frugal install, you should change that directory
+and use the B<bdir> parameter to point to the new directory.
+
+=over
+
+=item bdir=*
+
+The boot directory.  This is the directory where we look for
+the F<linuxfs> (squashfs) file, persistence files and live-remaster
+files.  The default is F</antiX>.   The leading slash is optional.
+
+=item sq=*
+
+Specify the linuxfs file plus the boot directory all at once.
+The default is F</antiX/linuxfs> but leading a leading slash
+is optional.
+
+=back
+
+=head2 Debugging
+
+Debugging the boot process is described in the L<FAQ|http://FAQ.html>.
+Sometimes booting problems can be tracked down to a missing driver or
+a driver that is not getting loaded.  These two boot parameters can
+be helpful in tracking down such problems.
+
+=over
+
+=item bp=*
+
+Set one or more breakpoints in the live-init script separated by
+commas.  Use B<bp=?> to get a list of breakpoints to choose from.
+The meanings may change with different versions so use B<bp=?> to
+be sure.
+
+ breakpoint 1) before loading modules
+ breakpoint 2) before looking for linuxfs file
+ breakpoint 3) after mounting boot device
+ breakpoint 4) after mounting linuxfs file
+ breakpoint 5) after mounting persistence device
+ breakpoint 6) after copy to ram
+ breakpoint 7) after mounting aufs
+ breakpoint 8) before prepare switch_root
+ breakpoint 9) right before starting init
+ breakpoint F) After fsck
+ breakpoint F) Before fsck
+ breakpoint c) After toram copy file error
+ breakpoint e) On possibly fatal error
+ breakpoint f) in frugal install
+ breakpoint i) after init= chroot
+ breakpoint m) before makefs
+ breakpoint r) After resize homefs rsync
+ breakpoint r) Before resize homefs rsync
+ breakpoint u) final umount
+ breakpoint v) before check VID
+ breakpoint x) before select device
+
+=item verb=*
+
+Control how much gets printed out during the early boot process.  The
+default level is B<verb=5>.  Lower numbers print less, higher numbers
+print more.  Usually B<6> or B<7> will show you more info without being
+too obnoxious.  The full output is available in the
+F</var/log/live/bootloader.log> file.  A partial version of the log file
+is available at F</init.log> from within most breakpoints.
+
+=back
+
+=head2 Loading Modules
+
+One of the primary tasks of the live-initrd is to mount the device
+that holds the F<linuxfs> file which contains the final file system.
+Modules (also called drivers) sometimes need to be loaded to allow
+the kernel to talk to certain types of hardware.  Most of the time
+this is taken care of automatically but if you have very old or
+unusual hardware, there might be a glitch.
+
+=over
+
+=item load=*
+
+Load one or more specific modules, separated by commas.  You
+need to know the name of the module or modules you need for
+this to be useful.
+
+=item load=all
+
+Load all modules in the initrd that are not hardware specific.
+This is a shotgun approach just in case there is a module that
+is available in the initrd that needs to be manually loaded
+for your system to boot.
+
+=item noload
+
+Don't automatically load the standard list of modules.
+
+=back
+
+=head2 Other Booting options
+
+These options affect the boot process but the don't fit into any of
+the categories above.
+
+=over 
+
+=item fromiso=*
+
+Use this to boot from a iso file.  This feature is deprecated because it
+defaults some of the more advanced features of the Live system but is
+supported due to popular (or otherwise) demand.  This can be abbreviated
+as B<iso=*>.
+
+=item try=*
+
+The maximum number of seconds to try finding the boot directory.  The
+default is 15 seconds.  This replaces B<rootdelay> which is no longer
+used.
+
+=back
+
+=head1 Persistence
+
+These options enable and control Live persistence which allows you to
+make changes that will persist across reboots.  These options are
+normally used on LiveUSBs but if you specify a persistence device (or
+use the default LiveCD persistence device) then you can make use
+persistence on a LiveCD.  In this case, the changes will have to be
+saved on some other device that allows for read-write access.
+
+B<I<New for antiX-14:>> If you enable peristence on a LiveCD and
+and device with the label C<antiX-Persist> is not found then we
+will give you a list of partitions to choose from and offer to
+give that device the label C<antiX-Persist>.  If a form of
+persistence is I<required> but the persistence file is not found
+then we will offer to create it for you.  We do not offer to
+create a persistence file if it is merely I<requested> with one
+exception.  If root persistence is required and home persistence
+is requested and neither C<rootfs> nor C<homefs> persistence
+files exist then we will offer to create both a C<rootfs> file
+and a C<homefs> file.
+
+
+=over
+
+=item persist=*
+
+This is the main option for controlling Live persistence.  It can be
+given one or more of the following parameters, separated by commas
+
+=over
+
+
+=item auto,a
+
+Automatically create F<rootfs> and/or F<homefs> files if they
+don't already exist and they are required.  Normally, we will
+prompt the user for size and file system type.
+
+=item hd
+
+Only look on internal hard drives for the persistence device.
+This is analogous to B<from=hd> for finding the boot device.
+
+=item home!,h!
+
+Enable and require home persistence.  The exclamation point
+means this form of persistence is required.  A non-fatal
+error will be thrown if it cannot be enabled.
+
+=item home,h
+
+Request home persistence but don't require it.  We will try
+to enable home persistence but if we can't then this fact
+is briefly noted and the boot continues normally.
+
+=item root!,r!
+
+Enable and require root persistence.  The exclamation point
+means this form of persistence is required.  A non-fatal
+error will be thrown if it cannot be enabled.
+
+=item root,r
+
+Request root persistence but don't require it.  We will try
+to enable root persistence but if we can't then this fact
+is briefly noted and the boot continues normally.
+
+=item static,s
+
+If root persistence is enabled then use the static version
+of root persistence.  Normally, dynamic root persistence
+is used. 
+
+=item usb
+
+Only look on usb partitions for the persistence device.
+This is analogous to B<from=usb> for finding the boot device.
+
+
+=back
+
+=back
+
+
+=head2 The Persistence Device
+
+Just like the boot device can be specified generally with the
+C<from=*> option and more specifically with options like C<bdev=*>,
+the same choices are available for specifying the persistence
+device.
+
+On a LiveUSB or a frugal install, the default persistence
+device is the boot device which is what you would expect.
+Normally the persistence files will sit alongside the F<linuxfs>
+file that we are booting from.
+
+On a LiveCD the default persistence device is whatever device
+has the disk label C<antiX-Persist>.  If you specify a persistence
+device with one of the three options below then the defaults
+are ignored.  
+
+=over
+
+=item pdev=*
+
+The name of the persistence device.  For example B<pdev=sdb2>.
+
+=item plab
+
+The partition label of the persistence device.  
+
+=item puuid
+
+The UUID of the persistence device.
+
+=back
+
+=head2 Other Persistence Options
+
+These options don't fit into any of the previous categories.
+
+=over
+
+=item ptry
+
+How many seconds to wait for the persistence device to appear.
+This is only relevant if the peristence device is different
+from the boot device.  The default is 10 seconds.
+
+=back
+
+=head1 Remastering
+
+These two options affect remastering.  Normally, remastering is done
+automatically whenever there is a F<linuxfs.new> file in the same
+directory as the F<linuxfs> file.   
+
+=over
+
+=item noremaster (B<I<LiveUSB Only>>)
+
+
+Disable remastering even when a F<linuxfs.new> file is found.
+
+=item rollback (B<I<LiveUSB Only>>)
+
+Roll back to the previous version of F<linuxfs>.   If you remaster and
+for some reason things go horribly wrong, then use this feature to get
+back to the state right before you did the remaster.
+
+=back
+
+=head1 Frugal Install
+
+B<I<New for antiX-14!>>  Automatically do a frugal install from a
+LiveCD or LiveUSB to a hard drive or a usb drive.  Persistence
+files can also be created automatically so you can literally
+create and boot into an installed system in just a minute or two
+(depending on the speed of your hardware).
+
+There are two modes of operation that are triggered by the same
+B<frugal> boot parameter: install mode and boot mode.  Normally
+the frugal device is a partition  with the label C<antiX-Frugal>.
+If such a device is not found then you will be given a list of
+partitions to choose from.  Once you have selected a device, you
+will be given an option to have it give the C<antiX-Frugal>
+label.  If an antiX frugal install has not already been done on
+the device you selected then an frugal install will be performed.
+
+The next time you boot with the frugal option, we will
+automatically boot from the C<antiX-Frugal> device into the
+frugal system that was installed. Again, if a frugal install is
+not found on that device, we will automatically create one.
+
+If persistence is requested and the persistence files are not
+found then we will offer to create them after we do the install.
+If you want to force a persistence file to be created in a later
+boot then I<require> that form of persistence with an
+exclaimation point.
+
+ frugal=root     (requested)
+ frugal=root!    (required)
+
+=over
+
+=item frugal
+
+Enable frugal mode.  Either boot into the existing frugal system
+or create a new one if it does not already exist.
+
+=item frugal=
+
+A contraction of B<frugal persist=*>.   It is common to add
+persist options when enabling frugal mode so you can add the
+persist options directly to the frugal boot parameter. Example:
+B<frugal=root,home>.
+
+=back
+
+=head2 The Frugal Device
+
+Just like you can select the boot device and the persistence
+device with device name, label, or uuid, you can do the same with
+the frugal device.  If you specify the frugal device this way and
+it is not found then we will give you a list of devices to choose
+from, just like with the B<frugal> parameter, but we will I<not>
+offer to label the device you have selected.
+
+=over
+
+=item fdev
+
+The name of the frugal device.
+
+=item flab
+
+The partition label of the frugal device.
+
+=item fuuid
+
+The UUID of the frugal partition.
+
+=back
+
+=head1 X-Windows
+
+These options affect X-windows.  They will all be carried over when you
+do an install.  The various keyboards options are carried over in the
+file F</etc/defaults/keyboard>.  The other options are carried over in
+the file F</etc/X11/xorg.conf>.
+
+=head2 Keyboard Options
+
+A rather complete list of keyboard options and variants is usually
+available at
+L</usr/share/X11/xkb/rules/xorg.lst|file:///usr/share/X11/xkb/rules/xorg.lst>
+
+=over
+
+=item kbd=*
+
+Set the keyboard layout.  This is usually one or more 2-letter country
+codes separated by commas.  For example: B<kbd=gr,us>.  This will allow
+users to quick switch between the US and the Greek keyboard layouts.
+
+=item kbopt=*
+
+Keyboard options.  These give special meaning to certain keys or key
+combinations.  For example B<kbopt=ctrl:nocaps> turns the Caps Lock
+key into an extra Control key.
+
+=item kbvar=*
+
+Keyboard variant.  These are variants to the keyboard layout.
+For example B<kbvar=dvorak> will give you a
+L<Dvorak|https://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard>
+keyboard layout when you use the B<us> layout.
+
+=back
+
+=head2 Video Options
+
+These options affect the X-windows video.
+
+=over 
+
+=item dpi=*
+
+DPI stands for "dots per inch".  It controls the size of most fonts.
+A larger DPI value will give you larger fonts and as smaller value
+will give you smaller fonts.  The default is B<96>.  This setting
+is stored in the I<Display Manager> configuration file.  On
+B<I<antiX>> this is F</etc/slim.conf>.
+
+=item xdrvr=*
+
+Force a particular video driver to be used.  By default, the
+X-Windows server will choose a driver that is tailored to work
+with your specific video hardware.  Sometimes that driver will
+fail on unusual or very old hardware.  You may need to add
+the B<nomodeset> boot option to prevent a video driver from
+taking control of the video hardware before X-Windows starts.
+You can use F<inxi> to check which driver is actually being
+used:
+
+ inxi -G
+
+
+=item xorgconf
+
+Create an F<xorg.conf> file.  If B<xdrvr> or B<xres> are given
+then F<xorg.conf> will be created automatically so there is
+usually no point in using this options.
+
+=item xres=*
+
+Set the I<default> screen resolution in F<xorg.conf>.  This is usually
+not needed because Xorg will automatically set the resolution.  All
+resolutions that are found by probing your hardware will also be added
+as alternatives to the default. 
+
+=back
+
+=head1 Mounting
+
+These options control automatic and semi-automatic mounting of
+block devices in the Live system.
+
+=over
+
+=item automount|amnt
+
+Enable automounting.  All the partitions on a usb stick will get
+mounted automatically when the usb stick is plugged in.
+
+=item automount=*|amnt=*
+
+In addition to enabling automounting as above, also mount some
+or all partitions are boot-time.
+
+=over
+
+=item automount=all
+
+Mount all partitions at boot-time.
+
+=item automount=usb
+
+Mount partitions on usb devices at boot-time.
+
+=back
+
+=item mount=*
+
+Mount partitions at boot-time without enabling automounting.  The
+options are just like those for B<automount> above.
+
+
+=item fstab=*
+
+This option controls the fstab hotplug feature.  Normally, fstab
+entires and F</media> mountpoints will be created for you automatically
+when you plug in a usb-stick.
+
+=over
+
+=item off
+
+Turn off all fstab hotplug and automount features.  An F<fstab>
+file will be created for you at boot-time and mountpoints for
+partitions will be added under the F</media> directory at boot-time
+but after that, no automatic changes to F<fstab> or the F</media>
+mountpoints will be made.
+
+=item nolabel
+
+Don't use disk labels for F</media> mountpoints. Use UUIDs or
+device names instead.
+
+=item uuid
+
+Use UUID as the fallback for mountpoint name if a label isn't used.
+A label won't be used if it doesn't exist or if labels were turned
+off with the B<nolabel> directive.
+
+=item encode
+
+Normally, if special characters are used in a partition label, the are
+converted to underscore in the mountpoint name.  Use this directive to
+use have the special characters encoded in hex instead.  This should
+match the names of the symlinks in F</dev/disk/by-label/>.
+
+=back
+
+=back
+
+=head1 Personalization
+
+These options let you customize or personalize your system.  They
+will all be carried over to the hard drive when you install.
+
+=over
+
+=item desktop=*
+
+This option sets the default window manager and desktop icon manager (if
+any).  For example: B<desktop=rox-icewm> will set the window manager to
+be IceWM and will use Rox to handle desktop icons.  The only other
+icon manager available is SpaceFM.  So B<desktop=space-fluxbox> will
+use Fluxbox as the window manager and use SpaceFM to handle desktop
+icons.
+
+=item hostname=*
+
+Set the hostname of the system.  The default hostname is C<antiX1>.
+
+
+=item lang=*
+
+In B<I<antiX>>, this option sets more than just the language.  It
+also sets the keyboard layout, the Debian mirror, and the timezone.
+If you set any of these others explicitly then that setting will
+over-ride the value set via B<lang>.
+
+=item mirror=*
+
+Set the country of the Debian mirror.  Usually this option is set to
+a 2-letter country code such as B<mirror=gr>.
+
+=item tz=*
+
+Set the timezone.  Example: B<tz=America/Denver>.  Some languages,
+such as en_US (United States English) cover more than one timezone
+so setting the B<lang> may not set the correct timezone.
+
+=back
+
+=head1 Other Live System Features
+
+These options control features that are specific to the Live system
+but don't fit into any of the previous categories.  Some of these
+are available in the bootloader menus.
+
+=over
+
+=item antiX=*|aX=*
+
+Disables certain startup services for a faster boot and a smaller,
+faster system. Valid values are a combination of the following letters:
+
+ L = lean        Turn off some services
+ M = mean        Turn off some networking services
+ X = Xtralean    Turn off even more services
+ D = nodbus      Dont' launch dbus
+
+=item checkfs (B<I<LiveUSB Only>>)
+
+Perform file system check on the B<LiveUSB>.  This won't check the file
+system of a LiveCD.  Will also check the filesystem of the persistence
+device (if different from the boot device) and the file systems on the
+persistence files F<rootfs> and F<homefs> if they exist and are enabled.
+It will only check the following types of file systems: ext2, ext3, and
+ext4.
+
+=item gfxsave=* (B<I<LiveUSB Only>>)
+
+Set the bootloader current bootloader settings as the defaults.
+Valid values: B<custom>, B<menus>, B<both>, and B<reset>.
+B<I<Note:>> the B<gfsave> options will usually not work on a
+frugal install.  
+
+=item md5|checkmd5
+
+Check the md5sum of the three primary files needed to boot a live
+system: F<linuxfs>, F<vmlinuz>, and F<initrd.gz>.  If this test
+passes then your boot media should be good although this won't
+necessarily catch intermittent problems.
+
+=item nocheckfs
+
+The LiveUSB acts like an installed system and will automatically
+check its own filesystem based the time since the last check and/or
+the number of mounts since the last check.  Use this option to turn
+this feature off.
+
+=item toram
+
+Copy the entire F<linuxfs> file into RAM.  This takes up RAM.  The
+amount of RAM used will be about the same as the size of the .iso
+file used to create the LiveCD or LiveUSB.  It will also take some
+time when you first boot to copy the file into RAM.  But after this,
+the system will run very fast.  You can also eject the LiveCD (or
+remove the LiveUSB while the system is running.
+
+=back
+ 
+=head1 Option Index
+
+

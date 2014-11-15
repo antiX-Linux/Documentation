@@ -1,0 +1,453 @@
+/* CSS to make pod2html files look a little bit better. */
+
+body {
+    margin-left:                    1em;
+    background-color:           #edf0f5;
+}
+
+body p, body ul, ol, body dl {
+    margin-left:                    2em;
+    margin-right:                   2em;
+  /* width:    80%; */
+  /* width:    31em; */
+}
+
+ul#nav_menu {
+    float:                         left;
+    clear:                         left;
+    /* display:                   none; */
+    /*border:           1px solid red;*/
+}
+
+ul#nav_menu {
+    list-style-type:               none;
+    margin:                         0em;
+    margin-top:                     0em;
+    padding:            8px 0px 8px 0px;
+}
+
+
+ul#nav_menu > li {
+    display:                     inline;
+    line-height:                      2;
+    padding:            6px 4px 6px 4px;
+    border:           1px solid #144a6e;
+    background-color:           #dadfea;
+}
+
+ul#nav_menu > li > a:link  {
+    text-align:                  center;
+    padding:          3px 16px 3px 16px;
+    text-decoration:               none;
+    font-size:                      1em;
+}
+
+span.nav_menu {
+    color:                      #144a6e;
+    background-color:           #dadfea;
+    text-align:                  center;
+    padding:                        6px;
+    text-decoration:               none;
+    font-size:                      1em;
+}
+
+ul#nav_menu > li > a:active,
+ul#nav_menu > li > a:hover {
+    color:                      #edf0f5;
+    background-color:           #144a6e;
+}
+
+dt > a[href] {
+    background-color:           #edf0f5;
+}
+
+a[href] {
+    color:                      #144a6e;
+    text-decoration:               none;
+    background-color:           #dadfea;
+}
+
+a[href]:hover,
+a[href]:active {
+    /* text-decoration:    underline; */
+    background-color:           #3e2d84;
+    color:                      #dadfea;
+
+    color:                      #ffffff;
+    background-color:           #144a6e;
+    text-decoration:               none;
+}
+
+li {
+   /*padding-bottom:    0.5em; */
+   margin-bottom:                 0.5em;
+}
+
+div#header {
+    float:                         left;
+    /*border:          1px solid blue;*/
+}
+
+#logo {
+ /* border:    1px solid darkgreen; */
+    float:                         left;
+    clear:                         left;
+}
+
+#banner-text {
+    float:                         left;
+    padding-top:                   34px;
+    margin:               0 0 30px 15px;
+    font-size:                     160%;
+    font-weight:                 normal;
+    color:                      #144a6e;
+    color:                       maroon;
+}
+
+xxbody > h1:first-of-type {
+    display:                       none;
+}
+
+/* body > h1:first-of-type +p { */
+body > p:first-of-type {
+
+/* body > a > h1:first-of-type +p,
+body > h1:first-of-type + p { */
+
+    clear:                         left;
+    font-size:                     140%;
+    font-weight:                    700;
+    color:                      #144a6e;
+    margin-left:                    0em;
+}
+
+/* Get rid of those horrible <hr>'s :-( */
+hr {
+        display:                   none;
+}
+
+/* Demote <h1>'s and set rest of headers relative. */
+h1 {
+    border-bottom:    solid 2px #144a6e;
+    font-weight:                    700;
+    font-size:                     110%;
+    color:                        black;
+    color:                      #144a6e;
+    width:                          80%;
+    margin-bottom:                 .4em;
+    /* text-transform:       lowercase; */
+}
+
+/*
+h1:first-letter {
+    text-transform:       uppercase;
+}
+*/
+
+#last-div {
+    border-top:       solid 2px #144a6e;
+    width:                          80%;
+    margin-top:                    .2em;
+}
+
+.to-top-1 > a:link,
+.to-top-2 > a:link,
+.to-top-3 > a:link,
+.to-top-1 > a:visited,
+.to-top-2 > a:visited,
+.to-top-3 > a:visited {
+
+    text-decoration:               none;
+    background-color:           #edf0f5;
+    color:                       maroon;
+    padding:            0px 2px 0px 2px;
+}
+.to-top-1 > a:hover,
+.to-top-2 > a:hover,
+.to-top-3 > a:hover {
+    text-decoration:               none;
+    background-color:           #dadfea;
+    background-color:           #3e2d84;
+    background-color:           #144a6e;
+    color:                      #edf0f5;
+    padding:            0px 2px 0px 2px;
+}
+
+
+.to-top-1,
+.to-top-2,
+.to-top-3 {
+    font-size:                    small;
+    font-weight:                    500;
+
+    /*border:               1px solid red; */
+}
+
+.to-top-1 +p,
+.to-top-2 +p,
+.to-top-3 +p {
+    margin-top:                    .2em;
+
+}
+
+.to-top-2 {
+    margin-left:                    1em;
+}
+
+.to-top-3 {
+    margin-left:                    2em;
+}
+
+
+h2 {
+    border-bottom:    solid 1px #144a6e;
+    font-weight:                    600;
+    font-size:                     110%;
+    color:                      #144a6e;
+    width:                          80%;
+    margin-left:                    1em;
+    margin-bottom:                 .2em;
+}
+
+
+h3 {
+    font-weight:                    600;
+    font-size:                     110%;
+    margin-left:                    2em;
+    margin-bottom:                 .2em;
+    padding-bottom:                 0em;
+    color:                      #144a6e;
+    text-decoration:          underline;
+}
+
+h4 {
+    font-weight:                    600;
+    font-size:                     100%;
+    margin-left:                    4em;
+    margin-bottom:                 .2em;
+    padding-bottom:                 0em;
+    color:                      #144a6e;
+}
+
+
+h1 +p, h2 + p, h3 + p {
+    margin-top:                     0em;
+}
+
+h4+p {
+    margin-top:                     0em;
+    margin-left:                    4em;
+
+}
+code {
+    font-weight:                    700;
+    font-size:                     110%;
+}
+/* Code sections. */
+
+pre {
+    /* border-left:      2px solid #3425b0; */
+    border:           1px solid #3425b0;
+    background-color:           #dcdcfc;
+
+    padding:                       .4em;
+    margin-left:                    2em;
+
+  /* Opera likes % */
+    width:                          80%;
+  /* width:                       40em; */
+}
+
+pre > code {
+    color:                      #144a6e;
+    font-weight:                    400;
+    font-size:                     100%;
+}
+
+/* Bold, italic in man pages. */
+b, strong {
+    font-weight:                    600;
+    /* color:                      #6549d7; */
+}
+
+b > i {
+    color:                      darkred;
+    font-style:                  normal;
+    font-weight:                    700;
+}
+span.file > i {
+    color:                      #00675c;
+    font-style:                  normal;
+    font-weight:                    700;
+    font-family:    "Courier New", Courier, monospace;
+}
+
+.image {
+    margin-left:                    2em;
+    /*border:               1px solid red;*/
+/*
+    border:           1px solid #341a81;
+    background-color:           #dcdcfc;
+    padding:            4px 8px 4px 8px;
+*/
+}
+
+p {
+    /* border:    1px solid red; */
+}
+
+dt {
+    font-weight:                    600;
+    color:                      #144a6e;
+    margin-left:                    2em;
+    /* color:                  #3e2d84;*/
+}
+
+dd dt {
+    font-weight:                    600;
+    color:                        black;
+    margin-left:                    2em;
+    /* color:                  #3e2d84;*/
+}
+
+
+dd > *:first-child {
+    margin-top:                   0.1em;
+}
+
+dd {
+    margin-left:                    0em;
+}
+
+/* Put the index on the right hand side in a floating box. */
+ul[id="index"] {
+    border-left:      1em solid #edf0f5;
+    border-bottom:    1em solid #edf0f5;
+    border-right:    .5em solid #edf0f5;
+    float:                        right;
+    width:                         18em;
+    background-color:           #dadfea;
+    padding-right:                  1em;
+    font-size:                      90%;
+    list-style-type:               none;
+    list-style-position:         inside;
+
+    margin-top:                     0em;
+    margin-left:                    0px;
+    margin-right:                   0px;
+    padding-top:                    5px;
+    padding-bottom:                 5px;
+    padding-left:                   0px;
+    padding-right:                  0px;
+}
+
+
+ul[id="index"] a[href] {
+    text-decoration:               none;
+}
+
+ul[id="index"] a[href]:hover {
+    color:                      #dce8fc;
+    background-color:           #144a6e;
+    /* text-decoration:    underline; */
+}
+
+ul[id="index"] > li {
+    padding-left:                   1em;
+    /* text-transform:       lowercase; */
+    /* border:    1px solid red; */
+    /* margin-bottom:           0.5em; */
+}
+
+/*
+ul[id="index"] > li > a:first-letter {
+    text-transform:       lowercase;
+}
+*/
+
+ul[id="index"] > li:before {
+    content:                        "•";
+    font-size:                     150%;
+    color:                      #3e2d84;
+    padding-right:                 .2em;
+}
+
+ul[id="index"] > li ul {
+    list-style-type:             circle;
+    margin-left:                    0px;
+    margin-right:                   0px;
+    padding-left:                   1em;
+    padding-right:                  0px;
+    margin-bottom:                  0em;
+}
+
+ul[id="index"] > li ul li ul {
+    padding-left:                   1em;
+    list-style-type:               none;
+}
+ul[id="index"] > li ul li {
+    /* display:    inline; */
+    margin-right:                   1em;
+    text-transform:                none;
+}
+
+#footer {
+    border-bottom:    solid 2px #144a6e;
+    border-top:       solid 2px #144a6e;
+    text-align:                  center;
+    margin-bottom:                 .2em;
+    
+    color:                      #144a6e;
+    color:                       maroon;
+    background-color:           #dadfea;
+    padding-top:                   .5em;
+    padding-bottom:                .5em;
+    height:                         1em;
+}
+
+#footer-left {
+    float:                         left;
+    margin-left:                    2em;
+}
+
+#footer-right {
+    float:                        right;
+    margin-right:                   2em;
+}
+
+table.option-index {
+    margin:                        10px;
+/*    width:                          80%; */
+    text-align:                    left;
+    border-spacing:              0 10px;
+    background:                 #d0d0d0;
+    background:                 #f0f0f0;
+    padding-left:                   4em;
+ /* border:                         1px outset grey; */
+}
+
+table.option-index td {
+    padding-left:                   2em;
+}
+
+table.option-index a {
+    background-color:           #edf0f5;
+}
+
+
+/* Warning heading in man pages. */
+a[name="warning"] {
+    -moz-border-radius-topleft:     5px;
+    -moz-border-radius-topright:    5px;
+    border-radius-topleft:          5px;
+    border-radius-topright:         5px;
+
+    color:    white;
+    background-color:      rgb(204,0,0);
+}
+a[name="warning"]:before {
+    content:          "\00a0\00a0\00a0";
+}
+a[name="warning"]:after {
+    content:          "\00a0\00a0\00a0";
+}

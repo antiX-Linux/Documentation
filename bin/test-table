@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+my $tot = 27;
+my $cols = 4;
+
+my $rows = int($tot / $cols);
+my $rem  = $tot % $cols;
+$rem > 0 and $rows++;
+
+my $maxi = $tot - 1;
+for my $row (1..$rows) {
+    printf "<tr>\n";
+    for my $col (1..$cols) {
+        my $index = ($row - 1) + $rows * ($col - 1);
+        $index > $maxi and next;
+        printf "%2d ", $index;
+    }
+    printf "</tr>\n";
+}
+

@@ -1,0 +1,10 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use Pod::Simple::HTMLBatch;
+
+my $batchconv = Pod::Simple::HTMLBatch->new;
+$batchconv->add_css("pod.css");
+$batchconv->batch_convert( ".", "html" );

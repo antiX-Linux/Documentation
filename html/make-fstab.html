@@ -1,0 +1,406 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>make-fstab - antiX Documentation</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+
+
+<ul id="index">
+  <li><a href="#Synopsis">Synopsis</a></li>
+  <li><a href="#Options">Options</a></li>
+  <li><a href="#Description">Description</a>
+    <ul>
+      <li><a href="#Create-Mode">Create Mode</a>
+        <ul>
+          <li><a href="#Hard-Drive-Devices">Hard Drive Devices</a></li>
+          <li><a href="#CD-ROM-Devices">CD-ROM Devices</a></li>
+        </ul>
+      </li>
+      <li><a href="#Update-Mode">Update Mode</a></li>
+      <li><a href="#Mountpoint-Creation">Mountpoint Creation</a>
+        <ul>
+          <li><a href="#Name-Collisions">Name Collisions</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#Environment">Environment</a></li>
+  <li><a href="#Files">Files</a></li>
+  <li><a href="#Debugging">Debugging</a></li>
+  <li><a href="#Caveats">Caveats</a></li>
+  <li><a href="#Copyright">Copyright</a></li>
+</ul>
+
+<p>make-fstab - Create and update dynamic fstab entries</p>
+
+<h1 id="Synopsis">Synopsis</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Add entries to and remove entries from the <span class="file"><i>fstab</i></span> file. Designed to work in a LiveCD/USB environment where the hardware can be different on every boot yet still respect any entries that were manually added to <span class="file"><i>fstab</i></span>.</p>
+
+<p>In <b><a href="#Create-Mode">create mode</a></b>, create a <span class="file"><i>/etc/fstab</i></span> file from scratch or supplement an existing fstab, creating entries for hard drives and cdrom, dvd, and floppy devices while preserve existing entries, if any. For each entry added, create a mountpoint under <span class="file"><i>/media</i></span> and optionally mount either all hard drive partitions or just usb drive partitions, or none at all.</p>
+
+<p>In <b><a href="#Update-Mode">update mode</a></b>, add or remove one entry (and a <span class="file"><i>/media </i></span> mountpoint) based on <a href="#Environment">environment variables</a> that are typically passed to a udev rule. Also optionally mount hard drive partitions that are added.</p>
+
+<h1 id="Options">Options</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<dl>
+
+<dt>-c --create</dt>
+<dd>
+
+<p>Force <b><a href="#Create-Mode">create mode</a></b> regardless of environment variables.</p>
+
+</dd>
+<dt>--delete</dt>
+<dd>
+
+<p>Delete all of our entries from <span class="file"><i>fstab</i></span>. Only works in <b>create mode</b>.</p>
+
+</dd>
+<dt>-d --dirs=[nolabel|uuid|encode]</dt>
+<dd>
+
+<p>Comma separated list of directives that control how we name mountpoints directories under the <span class="file"><i>/media</i></span> directory. The full list of valid directives is:</p>
+
+<pre><code> uuid, nouuid, label, nolabel, encode, noencode</code></pre>
+
+</dd>
+<dt>-D --debug</dt>
+<dd>
+
+<p>Add full environment information in the log file in <b>update mode</b>.</p>
+
+</dd>
+<dt>-f --fstab=&lt;file&gt;</dt>
+<dd>
+
+<p>Use &lt;file&gt; as the fstab file. Default is /etc/fstab for root user and ./fstab for non-root users.</p>
+
+</dd>
+<dt>-h --help</dt>
+<dd>
+
+<p>Show simple usage.</p>
+
+</dd>
+<dt>-l --log-file=&lt;file&gt;</dt>
+<dd>
+
+<p>Use &lt;file&gt; as the log file. The default is make-fstab.log.</p>
+
+</dd>
+<dt>-m --mount=[usb|all]</dt>
+<dd>
+
+<p>Mount these devices when building fstab in <b>create mode</b>. Perhaps it would be better to name this <code>--automount</code> but we use this name for backward compatibility. ??</p>
+
+</dd>
+<dt>-M --mntpnt=&lt;dir&gt;</dt>
+<dd>
+
+<p>The directory under which we create mountpoints. For root user the default is <span class="file"><i>/media</i></span> for non-root users the default is <span class="file"><i>./media</i></span>. =item -n --no-log</p>
+
+<p>Disable logging.</p>
+
+</dd>
+<dt>-N --no-uuid</dt>
+<dd>
+
+<p>Normally entries in the <code>fstab</code> file are identified with a UUID instead of the device name. If this is set then device names are used instead. For example, an entry starting with something like:</p>
+
+<pre><code> UUID=12345678-abcd-1234-abcd-123456789012</code></pre>
+
+<p>would instead start with just the name of the device:</p>
+
+<pre><code> /dev/sda1</code></pre>
+
+<p><i>Note:</i> The udev rule will need to be modified in order to have this apply in <b>update mode</b>. This is <i>not</i> the same as the <code>--dirs=nouuid</code> directive. If UUIDS are not available then we automatically fall back to using device names in <span class="file"><i>fstab</i></span> entries.</p>
+
+</dd>
+<dt>-q --quiet</dt>
+<dd>
+
+<p>Only print errors and warnings. Normally a short summary of what is happening in <b>create mode</b> is printed out.</p>
+
+</dd>
+<dt>-s --swap-only</dt>
+<dd>
+
+<p>Only add swap partitions to fstab in <b>create mode</b>.</p>
+
+</dd>
+<dt>-u --update</dt>
+<dd>
+
+<p>Force <b><a href="#Update-Mode">update mode</a></b> regardless of environment variables.</p>
+
+</dd>
+<dt>-v --verbose</dt>
+<dd>
+
+<p>Print more information to the screen in both <b>create</b> and <b>update</b> modes.</p>
+
+</dd>
+</dl>
+
+<h1 id="Description">Description</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>The <span class="file"><i>make-fstab</i></span> program is designed to create and update an <span class="file"><i>fstab</i></span> file on a LiveCD/USB system. On such a system, unless some service takes responsibility for mounting block devices, an fstab file must be created anew each time the system boots. Even on such a system is it unconventional to dynamically update fstab when devices get plugged and unplugged but we have found this is very convenient for the users, especially on command-line only systems.</p>
+
+<p>Since we need to create an fstab file at boot time anyway, it was not a big stretch to add full dynamic updating.</p>
+
+<p>One of the key features is that any manually created fstab entries take precedence over entries that are generated automatically. In the extreme case where all devices are already in the <span class="file"><i>fstab</i></span> then <span class="file"><i>make-fstab</i></span> won&#39;t do do anything.</p>
+
+<h2 id="Create-Mode">Create Mode</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>We begin by removing all fstab entries that were created by this program. All such entries are preceded by a <i>marker</i> comment line like:</p>
+
+<pre><code> # created by make-fstab /dev/sda1</code></pre>
+
+<p>If there are no remaining entries then we erase fstab and replace it with header comments designed to work with entries generated by this program.</p>
+
+<h3 id="Hard-Drive-Devices">Hard Drive Devices</h3>
+
+<p>We start populating fstab by appending entries preceding each entry line with a marker line as described above. We start by using the <span class="file"><i>blkid</i></span> program to get a list of all block devices with file systems. We filter the list to only include devices with major device number 8 or 3 (hard drives, as opposed to, say, cdrom drives). For each device we first check to see if it is already mounted or was already in fstab as a manual entry.</p>
+
+<p>If <code>--swap</code> was given then we only add entries for swap devices and ignore all others.</p>
+
+<h3 id="CD-ROM-Devices">CD-ROM Devices</h3>
+
+<p>Next, if there is no <code>--swap</code> then we include entries for the following devices, if they exist:</p>
+
+<dl>
+
+<dt>/dev/cdrom*</dt>
+<dd>
+
+</dd>
+<dt>/dev/cdrw*</dt>
+<dd>
+
+</dd>
+<dt>/dev/dvd*</dt>
+<dd>
+
+</dd>
+<dt>/dev/fd[0-9]*</dt>
+<dd>
+
+</dd>
+<dt>/dev/floppy*</dt>
+<dd>
+
+</dd>
+<dt>/dev/scd[0-9]*</dt>
+<dd>
+
+</dd>
+<dt>/dev/sr[0-9]*</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>This may not be as robust as using the major device number for hard drives but there is ad hocery involved in processing these names anyway. A subroutine exists to generate this list of devices somewhat more correctly.</p>
+
+<h2 id="Update-Mode">Update Mode</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>In <b>update mode</b>, act as a udev-helper using <a href="#Environment">environment variables</a> to determine what to do. Usually either add or remove an fstab entry based on the value of the <b>ACTION</b> variable. Since it is convenient to use fixed command line parameters inside a udev rule, the behavior in <b>update mode</b> can be controlled by <a href="#Files">two files</a>, <span class="file"><i>/etc/fstab.hotplug</i></span> and <span class="file"><i>/etc/fstab.automount</i></span>.</p>
+
+<h2 id="Mountpoint-Creation">Mountpoint Creation</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The names of the <span class="file"><i>/media</i></span> mountpoint directories are controlled by directives given in the <code>--dirs</code> command line parameter in both <b>create</b> and <b>update mode</b>s. It can be further modified by the contents of the <span class="file"><i>fstab.hotplug</i></span> file in <b>udpdate mode</b> only. The following directives are valid: <code>label nolabel uuid nouuid encode noencode</code>. Directives should be separated by commas. The current default is <code>label,nouuid,noencode</code>.</p>
+
+<p>Changes accumulate so if you have <code>--dirs=uuid</code> in the udev rules file and the <span class="file"><i>fstab.hotplug</i></span> file contains <code>nolabel</code>, the final result would be <code>nolabel,uuid,noencode</code>.</p>
+
+<dl>
+
+<dt>label, nolabel</dt>
+<dd>
+
+<p>If this is set then use the partition label as the mountpoint if it exists. Otherwise fallback to using the UUID or the device name.</p>
+
+</dd>
+<dt>uuid, nouuid</dt>
+<dd>
+
+<p>If this is set then use the UUID of the device as the mountpoint if no label exists or if labels are not enabled. Otherwise fallback to using the device name (<b>sda1</b>, and so on).</p>
+
+</dd>
+<dt>encode, noencode</dt>
+<dd>
+
+<p>If this is set then mountpoint names based on labels or UUIDs will mimic the symlinks under <span class="file"><i>/dev/disk/by-label</i></span> and <span class="file"><i>/dev/disk/by-uuid</i></span>. The encoding coverts special characters to their hex values. Examples of encoding:</p>
+
+<pre><code> newline --&gt; \x0a
+ space   --&gt; \x20
+ slash   --&gt; \x2f</code></pre>
+
+<p>If this is not set then sequences of one or more special characters are converted to a single underscore. There are no special characters in valid UUIDs.</p>
+
+</dd>
+</dl>
+
+<h3 id="Name-Collisions">Name Collisions</h3>
+
+<p>It is very easy for more than one partition to have the same label. In rarer cases it is possible for there to be collisions in UUIDs and (very rarely) device names. If a collision is detected then a hyphen and a digit are appended to avoid the collision. Examples:</p>
+
+<dl>
+
+<dt><span class="file"><i>boot</i></span></dt>
+<dd>
+
+</dd>
+<dt><span class="file"><i>boot-2</i></span></dt>
+<dd>
+
+</dd>
+<dt><span class="file"><i>boot-3</i></span></dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>The digits can range from 2 through 9. <b><i>FIXME</i></b>: should we use 02 -- 99 instead?</p>
+
+<h1 id="Environment">Environment</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>In <b>update mode</b> we act as a udev-helper using the environment variables:</p>
+
+<dl>
+
+<dt>ACTION</dt>
+<dd>
+
+</dd>
+<dt>DEVNAME</dt>
+<dd>
+
+</dd>
+<dt>ID_FS_LABEL</dt>
+<dd>
+
+</dd>
+<dt>ID_FS_LABEL_ENC</dt>
+<dd>
+
+</dd>
+<dt>ID_FS_TYPE</dt>
+<dd>
+
+</dd>
+<dt>ID_FS_UUID</dt>
+<dd>
+
+</dd>
+<dt>ID_FS_UUID_ENC</dt>
+<dd>
+
+</dd>
+</dl>
+
+<p>In addition, if neither <code>--create</code> nor <code>--update</code> is specified then we will fall back to using environment variables to determine the mode to use. If both <b>ACTION</b> and <b>DEVNAME</b> are defined then we will use <b>update mode</b>, otherwise we will use <b>create mode</b>.</p>
+
+<h1 id="Files">Files</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>It is easy to control the operation of the program in <b>create mode</b> by supplying command line parameters. But if <b>update mode</b> is called from a udev rule then it is not always convenient to have to rewrite the rule to add command line parameters in order to change the behavior. So there are two control files that are used to control the operation when in <b>update mode</b>.</p>
+
+<dl>
+
+<dt>/etc/fstab.hotplug</dt>
+<dd>
+
+<p>The existence of this file turns fstab hotplugging on and off. If the file does not exist then we do not do nothing when in <b>update mode</b>. The fstab file is not re-written, mountpoint directories are not created or deleted, and devices are not mounted.</p>
+
+<p>If the file exists then fstab hotplugging is enabled. When a device is plugged in and we are called via the udev rule then we will create a new entry for the device in fstab and create a mountpoint directory for it. Similarly, we will remove the entry for a device and remove its mountpoint directory when it is unplugged.</p>
+
+<p>The contents of this file can contain the same information as the <code>--dirs</code> command line parameter. It controls how we name the mountpoint directories under <span class="file"><i>/media</i></span>. This file is read <i>after</i> the command line parameter is read so you could use <code>--dirs</code> in the udev rule to alter the defaults and then have those new defaults over-ridden by the contents of the <span class="file"><i>fstab.hotplug</i></span> file. If hotplugging is disabled then no automounting will occur because no new entries are being added to fstab.</p>
+
+</dd>
+<dt>/etc/fstab.automount</dt>
+<dd>
+
+<p>The <span class="file"><i>/etc/fstab.automount</i></span> control file is used in <b>update mode</b>. If this file exists then we automatically mount a device whenever we create a new entry for it and the mountpoint is under the <span class="file"><i>/media</i></span> directory.</p>
+
+<p>In <b>create mode</b> this same functionality is provided by the <code>--mount</code> parameter which can be set to <b>all</b> or <b>usb</b>. There is no equivalent to usb-only in <b>update mode</b> since it is assumed that if automounting is enabled then any new disk drive that shows up should be automounted.</p>
+
+</dd>
+</dl>
+
+<h1 id="Debugging">Debugging</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>It can be tricky and dangerous to debug a script that overwrites your <span class="file"><i>fstab</i></span> file. Most of this script can be debugged when it is run as a non-root user. In that case, all input and output files are read and created in the current working directory. Mountpoints are created in the <span class="file"><i>./media/</i></span> directory. In addition, when run as non-root user, the <span class="file"><i>blkid</i></span> command is run with <span class="file"><i>sudo</i></span> to mimic how that program responds when it is run by root. But <span class="file"><i>sudo</i></span> is not used for writing any files or doing anything to the system, only to gather information so you should not be alarmed when it asks for your password.</p>
+
+<p>In addition, the <code>--debug</code> option causes then entire environment to be sent to the log file when in <b>update mode</b>. This makes it easy to verify exactly what inputs the program is getting when it is called as a udev-helper.</p>
+
+<h1 id="Caveats">Caveats</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>We do not handle manual entries that start with <code>LABEL=xxx</code> perfectly. We will not remove them but it is possible that will add an entry that refers to the same device. Since labels are generally non-unique, it is not a good idea to use them to identify devices inside your fstab.</p>
+
+<p>There are no special characters in valid UUIDs so the encoded and non-encoded version of UUIDS should be identical. If they are not indentical then using <code>UUID=xxx</code> in fstab entries will fail. If there is a mismatch then we fall back to using the device name to identify the device in the first field of <span class="file"><i>fstab</i></span>.</p>
+
+<h1 id="Copyright">Copyright</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Copyright 2012 -- 1014 BitJam for antiX <a href="http://antix.freeforums.org/">http://antix.freeforums.org/</a></p>
+
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    2014-11-13 12:59
+
+  </div>
+
+  <div id="footer-center">
+  antiX Documentation
+  </div>
+
+</div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,88 @@
+=encoding utf8
+
+=head1 NAME
+
+search-bar -- Internet searches from the command line and clipboard
+
+=head1 SYNOPSIS
+
+In addition to the GUI search-bar application, the following command
+line search applications are available:
+
+    amz           Amazon
+    antix         antiX Linux forums
+    ddg           DuckDuckGo
+    dict-search   Dictionary Lookup
+    g             Google
+    gf            Gentoo Linux Forums
+    imdb          Internet Movie Database
+    imdb-disc     Search IMDb for labels on bluray and dvd discs
+    imdbe         Internet Movie Database Episodes
+    mx            MX Linux Forums
+    stp           Start Page
+    wiki          Wikipedia
+
+
+=head1 KEYS
+
+=over
+
+=item amz
+
+Amazon.com Search
+
+=item antix
+
+antiX Linux Forums Search
+
+=item ddg
+
+DuckDuckGo Search
+
+=item dict-search
+
+Look up words in an on-line dictionary
+
+=item g
+
+Google Search
+
+=item gf
+
+Gentoo Linux Forums Search
+
+=item imdb
+
+Internet Movie Datebase Search
+
+
+=item imdbe
+
+Internet Movie Database Episode Search
+
+=item mx
+
+MX (and Mepis) Linux Forums Search
+
+=item stp
+
+StartPage Search
+
+=item wiki
+
+Wikipedia Search
+
+
+=back
+
+=head1 ENVIRONMENT
+
+=head1 LICENSE
+
+All code is licensed under the 
+L<GPL-v3|https://www.gnu.org/copyleft/gpl.html> or later.
+
+=head1 COPYRIGHT
+
+Copyright 1014
+BitJam for antiX L<http://antix.freeforums.org/>

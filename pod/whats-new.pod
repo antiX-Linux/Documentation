@@ -1,0 +1,184 @@
+=head1 NAME
+
+What's New in antiX-14-a3.2
+
+=head1 SYNOPSIS
+
+This lists what is new and is a place-holder for the mythical docs
+to come.  The menu above is not fully functional.
+
+=head1 Desktop Session
+
+=over
+
+=item new min-xxxx desktop codes
+
+In addition to Rox-xxxx and Space-xxxx desktop codes we offer
+min-xxxx desktop codes which  disable desktop icons and system tray
+icons and conky.  These allow you to boot directly into a small
+memory footprint GUI.  The difference between min-xxxx and just
+xxxx is that the min version disables system tray icons and conky.
+
+=item New startup-dialog.py
+
+Toggled via C<STARTUP_DIALOG=> in F<desktop-session.conf>
+
+=item Customize "Paint drying" text
+
+Accepts either text or programs that return text:
+
+    NOTIFICATION_TEXT="This is my notification"
+
+    NOTIFICATION_TEXT="/usr/games/fortune"
+
+=item move most programs to /usr/local/lib/desktop-session
+
+This should not affect users.  If it does, Please let us
+know.  We are trying to clear out programs from F</usr/local/bin>
+that aren't normally called from the command line.
+
+=item Fix Alternative Desktops menus
+
+Add back Rox-fluxbox.
+
+Add min-xxxx options.
+
+=item
+
+=item
+
+=item
+
+=item
+
+=item
+
+=back 
+
+=head1 Live Initrd
+
+=over
+
+=item  Start up and shutdown init scripts 
+
+Almost all of the live startup and shutdown init scripts have been
+moved into the initrd.  This means the final persist-save will be
+run in the command line.  The only exception was
+live-restore-services which must be run after all other normal
+services start so it is called from inside F</etc/rc.local>.
+
+=item Systemd
+
+These changes should make live startup on systemd work much better
+but I have not tested it.  There is still a problem with the live
+shutdown with systemd.  For now, you will have to run persist-save
+manually on live systemd systems.
+
+=item
+
+=item
+
+=back 
+
+=head1 Bootloader
+
+On a LiveUSB, the bootloader will get updated automatically on
+the first boot so you won't see the new bootloader until the
+second boot.  This is only for this testing mini-release.
+
+
+=over
+
+=item Default 1024 x 768 resolution
+
+We will probably still with our standard 800 x 600 for the final
+release but I wanted our testers to have a chance to see this
+higher resolution.
+
+You can change the default resolution but commenting and
+uncommenting the layout=xxx lines in F<gfxboot.cfg>.  The comment
+character is semi-colon.
+
+=item Fallback to 640 x 480 resolution
+
+If your hardware does not support the default resolution (via BIOS
+which is usually rather limited) then we fall back to  640 x 480
+resolution.  We can also fall back further to letting you enter in
+codes to select the main boot option but I have not figured out how
+to add help that explains what these options are.  The codes are the
+in the new LABEL lines in syslinux.cfg and isolinux.cfg.
+
+=item Fn Menus
+
+Which Fn menus are included changes with the resolution.  This
+is to help make sure all the menus fit even with different
+languages are used.  Most notably, the "F1 Help" entry has been
+dropped at 800 x 600 and at 640 x 480 even though F1 will still
+open up the help screen.
+
+=item Help Screen
+
+The size of the help screen has been slightly enlarged.  The size
+should be the same for both 800 x 600 and 640 x 480.  It is even
+larger at 1024 x 768.
+
+=item Desktop menu
+
+The Desktop menu is no longer replaced by the Save menu even though
+we still remember your the last desktop you used on the liveUSB.
+This may be too confusing though because the default choice in the
+"F6 Desktop" menu is no longer respected.  I don't know what to
+do about this.  Even if we don't explicitly save the desktop choice,
+it will be saved with root persistence or home persistence or even
+remastering.
+
+Maybe the best thing would be to add a "default" entry and let
+people be surprised by what desktop it selects.  This is the
+default that will get changed with persistence.  If a user wants
+to select a particular desktop then they can do it by selecting
+a non-default entry.  This is more honest in a way.  The only
+thing we lose is there is no immediate indication of what the
+default default selection is but we could just move that to the
+top of the list. I might just go ahead and do this.
+
+=back
+
+=head1 Miscellaneous 
+
+=over 
+
+=item htop
+
+Default to hiding userland threads
+
+=item splash-term
+
+Splash-term should tell you about the help option now.
+
+=item .bashrc
+
+/sbin and /usr/sbin are added to the user's path
+
+=item urxvt-style should be fixed
+
+It is an very easy way to customize the urxvt terminal emulator.
+
+=item search-bar-icon is enabled by default
+
+It allows you to search for highlighted text via a system try
+icon.  
+
+=item Graphical Conky is enabled by default
+
+We are now using the same conkyrc for all the window managers.
+The ghost window problem in IceWM seems to have been fixed
+upstream.  Please let us know if it is still a problem for you.
+
+=item The search applications have changed slightly.
+
+Google search is now C<gg> instead of C<g>.  All search
+applications require an argument of C<--> or C<--clipboard>
+to do a search for the clipboard contents.
+
+=back
+

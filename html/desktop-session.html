@@ -1,0 +1,409 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>desktop-session - antiX Documentation</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+
+
+<ul id="index">
+  <li><a href="#Synopsis">Synopsis</a></li>
+  <li><a href="#How-to-Use">How to Use</a></li>
+  <li><a href="#Configuration">Configuration</a>
+    <ul>
+      <li>
+        <ul>
+          <li><a href="#Configuration-Options">Configuration Options</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#License">License</a></li>
+  <li><a href="#Copyright">Copyright</a></li>
+</ul>
+
+<p>desktop-session Session manager / loader</p>
+
+<h1 id="Synopsis">Synopsis</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>This program is an intermidiate set of scripts to loading the session. It is similar in principle to a glorified ~/.xinitrc. The job of desktop-session is to take input from the login manager, and output a set of programs / functions in order to load a &quot;session&quot;.</p>
+
+<h1 id="How-to-Use">How to Use</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Desktop-session is enabled by default to handle login signals from slim. Choosing Rox-xxxx or Space-xxxx will be forwarded by slim to desktop-session were it is then determined that you would like to load xxxx as the window manager and Rox or Space as the Icon manager. From here it uses options set in /etc/desktop-session/desktop-session.conf (OR ~/.desktop-session/desktop-session.conf) to start more items that you would like to see in the session. (Conky for example) There are several options that are handled by default (with Full), however it is not limited to these options.</p>
+
+<dl>
+
+<dt><b>rox-fluxbox</b></dt>
+<dd>
+
+<p>fluxbox window manager with rox pinboard and other startup apps</p>
+
+</dd>
+<dt><b>space-fluxbox</b></dt>
+<dd>
+
+<p>fluxbox window manager with spacefm desktop and other startup apps</p>
+
+</dd>
+<dt><b>min-fluxbox</b></dt>
+<dd>
+
+<p>fluxbox only, minimal ram as nothing else is started!</p>
+
+</dd>
+<dt><b>fluxbox</b></dt>
+<dd>
+
+<p>fluxbox only, with other startup applications.</p>
+
+</dd>
+<dt><b>rox-icewm</b></dt>
+<dd>
+
+<p>icewm window manager with rox pinboard and other startup apps</p>
+
+</dd>
+<dt><b>space-icewm</b></dt>
+<dd>
+
+<p>icewm window manager with spacefm desktop and other startup apps</p>
+
+</dd>
+<dt><b>min-icewm</b></dt>
+<dd>
+
+<p>icewm only, minimal ram as nothing else is started!</p>
+
+</dd>
+<dt><b>icewm</b></dt>
+<dd>
+
+<p>icewm only, with other startup applications.</p>
+
+</dd>
+<dt><b>rox-jwm</b></dt>
+<dd>
+
+<p>jwm window manager with rox pinboard and other startup apps</p>
+
+</dd>
+<dt><b>space-jwm</b></dt>
+<dd>
+
+<p>jwm window manager with spacefm desktop and other startup apps</p>
+
+</dd>
+<dt><b>min-jwm</b></dt>
+<dd>
+
+<p>jwm only, minimal ram as nothing else is started!</p>
+
+</dd>
+<dt><b>jwm</b></dt>
+<dd>
+
+<p>jwm only, with other startup applications.</p>
+
+</dd>
+</dl>
+
+<p>If you wish to start a session from another login manager (or from the CLI via startx) you will need to specify desktop-session as the session handling script.</p>
+
+<p>For example with startx.</p>
+
+<p>log in as user into the console.</p>
+
+<p>type: startx /usr/local/bin/desktop-session DESKTOP-CODE</p>
+
+<p>Where DESKTOP-CODE is replaced with any of the codes from the above list.</p>
+
+<h1 id="Configuration">Configuration</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Configuration is handled in /etc/desktop-session/desktop-session.conf. This is the global configuration file, so be careful! Any changes made in this file will affect all users <b>Unless</b> the user has a user based desktop-session.conf file (~/.desktop-session/desktop-session.conf). In This case all options specified in the user file will override what is in the global configuration file.</p>
+
+<h3 id="Configuration-Options">Configuration Options</h3>
+
+<dl>
+
+<dt>STARTUP_DELAY=&quot;X&quot;</dt>
+<dd>
+
+<p>Session service delay.</p>
+
+<p>This is to set how long to delay startup to give enough time for the wm to completely load, before starting to load other applications. This wait period will be started after the window manager has been found running ( has a pid ). TIME is expressed in seconds</p>
+
+<p>Options: 0-9...</p>
+
+<pre><code> STARTUP_DELAY=&quot;1&quot; </code></pre>
+
+<p>will delay for 1 second.</p>
+
+<pre><code> STARTUP_DELAY=&quot;10&quot;</code></pre>
+
+<p>will delay for 10 seconds.</p>
+
+<p>This is useful for systems that are not quite fast enough and applications (such as the icon managers) start before the window manager finishes loading and therfor end up looking like they are not running.</p>
+
+</dd>
+<dt>TIMES_TO_CHECK=&quot;X&quot;</dt>
+<dd>
+
+<p>Session window manager check</p>
+
+<p>This is to set the amount of times desktop-session checks for a running window manager before giving up and denying the session to load.</p>
+
+<p>Options: 0-9...</p>
+
+<p>Example:</p>
+
+<pre><code> TIMES_TO_CHECK=&quot;20&quot;</code></pre>
+
+</dd>
+<dt>FORCE_LOAD=&quot;X&quot;</dt>
+<dd>
+
+<p>Session give up override</p>
+
+<p>This is to set the override if the window manager is never found to be running by desktop-session after X number of times (Specified above). This will force the session to load if set to true.</p>
+
+<p>Options: true | false</p>
+
+<p>Example:</p>
+
+<pre><code> FORCE_LOAD=&quot;true&quot;</code></pre>
+
+</dd>
+<dt>SESSION_PROTECT=&quot;X&quot;</dt>
+<dd>
+
+<p>Session Protect. This is how to protect the user from automatic updating of any file within desktop-session. Examples of automatically updated files are the menu, any file compare within file_compare, etc.</p>
+
+<p>Options for this are:</p>
+
+<dl>
+
+<dt>true</dt>
+<dd>
+
+<p>Strictly protect the user, leave the user to deal with any of the updating</p>
+
+</dd>
+<dt>ask</dt>
+<dd>
+
+<p>Notify me at startup of any changes and allow me to choose what to update</p>
+
+</dd>
+<dt>false</dt>
+<dd>
+
+<p>Just update me, I dont want to worry about falling behind.</p>
+
+</dd>
+</dl>
+
+<p>Example:</p>
+
+<pre><code> SESSION_PROTECT=&quot;ask&quot; </code></pre>
+
+</dd>
+<dt>NOTIFICATION_TEXT=&quot;X&quot;</dt>
+<dd>
+
+<p>Notification text or program</p>
+
+<p>This is where the text is set for the notification that the session is loading. This can be a specified text string or a program that will return a text string</p>
+
+<p>Options:</p>
+
+<dl>
+
+<dt>Session is Loading, Please Wait.....</dt>
+<dd>
+
+<p>Specific Text Option. Single line.</p>
+
+</dd>
+<dt>/usr/games/fortune</dt>
+<dd>
+
+<p>Program to return text</p>
+
+</dd>
+</dl>
+
+<p>Example:</p>
+
+<pre><code> NOTIFICATION_TEXT=&quot;Session is Loading, Please Wait.....&quot;
+ 
+ NOTIFICATION_TEXT=&quot;/usr/games/fortune&quot;</code></pre>
+
+</dd>
+<dt>STARTUP_DIALOG=&quot;X&quot;</dt>
+<dd>
+
+<p>Startup Dialog Enable</p>
+
+<p>This is where to enable or disable the startup dialog. When Enabled it will run only once per login, not on restarts or desktop switching.</p>
+
+<p>Options: true | false</p>
+
+<p>Example:</p>
+
+<pre><code> STARTUP_DIALOG=&quot;true&quot;
+ </code></pre>
+
+</dd>
+<dt>STARTUP_DIALOG_CMD=&quot;X&quot;</dt>
+<dd>
+
+<p>Startup Dialog Command.</p>
+
+<p>This is where to setup what you would like to run for a startup dialog.</p>
+
+<p>Example:</p>
+
+<pre><code> STARTUP_DIALOG_CMD=&quot;yad --image=&#39;info&#39; --text=&#39;this is my startup dialog&#39;&quot;
+ 
+ STARTUP_DIALOG_CMD=&quot;leafpad ~/.startup-text
+ 
+ STARTUP_DIALOG_CMD=&quot;/usr/local/lib/desktop-session/startup-dialog.py&quot;
+ </code></pre>
+
+</dd>
+<dt>LOAD_CONKY=&quot;X&quot;</dt>
+<dd>
+
+<p>Session Load Conky</p>
+
+<p>This is where you set if you would like to load conky or not. Loading conky here as apposed to a startup file allows us to incorporate conky into you sessions by loading session specific conkyrcs&#39;</p>
+
+<p>If you wish to load a specific conkyrc for a specific window manager, take the name of the window manager, copy your conkyrc to ~/.conky and name / rename that conkyrc to WindowManager-conkyrc. If you do not want a session specific conky simply remove all formatted options (rename *.bk) and desktop-session will load the default ~/.conkyrc</p>
+
+<p>Options: true | false</p>
+
+<p>Example:</p>
+
+<pre><code> LOAD_CONKY=&quot;true&quot; 
+ </code></pre>
+
+<p>In desktop-session.conf to load conky in general (~/.conkyrc). And copy / make....</p>
+
+<pre><code> ~/.conky/icewm-conkyrc
+ </code></pre>
+
+<p>To load that conkyrc upon loggin into an icewm based session.</p>
+
+</dd>
+<dt>LOAD_XDG_AUTOSTART=&quot;X&quot;</dt>
+<dd>
+
+<p>Session Load XDG Autostart enabled items</p>
+
+<p>This will load any application that is setup to autostart via xdg autostart directories / .desktop files.</p>
+
+<p>Options: true | false</p>
+
+<p>Example:</p>
+
+<pre><code> LOAD_XDG_AUTOSTART=&quot;true&quot;
+ </code></pre>
+
+</dd>
+<dt>LOAD_STARTUP_FILE=&quot;X&quot;</dt>
+<dd>
+
+<p>Session Load Desktop-session startup</p>
+
+<p>This will enable the global /etc/desktop-session/startup file (or ~/.desktop-session/startup if existing) if enabled. The startup file is in bash script format, so however you would like to run / enable something it is only restrained by what bash can do.</p>
+
+<p>Options: true | false</p>
+
+<p>Example: LOAD_STARTUP_FILE=&quot;true&quot;</p>
+
+</dd>
+<dt>SCREEN_BLANK_TIME=&quot;X&quot;</dt>
+<dd>
+
+<p>Screen Blank Time</p>
+
+<p>This is where you set the time value that it takes for your screen to &quot;blank&quot; (turn off / go blank). The time value is in secconds. Please note you can edit this manually, as well as via the set-screen-blank app (if installed)</p>
+
+<p>Options: [0-9]....</p>
+
+<p>Example:</p>
+
+<pre><code> SCREEN_BLANK_TIME=&quot;600&quot;</code></pre>
+
+<p>For 10 minutes</p>
+
+<pre><code> SCREEN_BLANK_TIME=&quot;3600&quot;</code></pre>
+
+<p>For 1 hour</p>
+
+</dd>
+</dl>
+
+<h1 id="License">License</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>All code is licensed under the <a href="https://www.gnu.org/copyleft/gpl.html">GPL-v3</a> or later.</p>
+
+<h1 id="Copyright">Copyright</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Copyright 1014 BitJam for antiX <a href="http://antix.freeforums.org/">http://antix.freeforums.org/</a></p>
+
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    2014-11-13 21:20
+
+  </div>
+
+  <div id="footer-center">
+  antiX Documentation
+  </div>
+
+</div>
+
+</body>
+</html>
+
+

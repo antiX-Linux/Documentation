@@ -1,0 +1,186 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>console - antiX Documentation</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+
+
+<ul id="index">
+  <li><a href="#Synopsis">Synopsis</a></li>
+  <li><a href="#Navigating-the-Consoles">Navigating the Consoles</a>
+    <ul>
+      <li><a href="#Arrow-Keys-and-Function-Keys">Arrow Keys and Function Keys</a></li>
+      <li><a href="#From-the-Command-Line">From the Command Line</a></li>
+      <li><a href="#To-and-From-X-Windows">To and From X-Windows</a></li>
+      <li><a href="#Inside-of-VirtualBox">Inside of VirtualBox</a></li>
+    </ul>
+  </li>
+  <li><a href="#Scroll-buffer">Scroll buffer</a></li>
+  <li><a href="#Select-Theme">Select Theme</a></li>
+  <li><a href="#Different-Theme-on-each-Console">Different Theme on each Console</a></li>
+  <li><a href="#Boot-Parameters">Boot Parameters</a>
+    <ul>
+      <li><a href="#The-Boot-Parameter">The  Boot Parameter</a></li>
+    </ul>
+  </li>
+  <li><a href="#Special-Features">Special Features</a></li>
+  <li><a href="#Copyright">Copyright</a></li>
+</ul>
+
+<p>The Linux Virtual Consoles -- a Quick Guide</p>
+
+<h1 id="Synopsis">Synopsis</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>There are several text-only consoles available in Linux that function outside of graphical environments like X-Windows. The default resolution is poor but if you use the <code>vga</code> boot parameter to increase the resolution they become very useful. It is standard to have six of these virtual consoles available. Once you learn how to increase the resolution and navigate between consoles, they can be a power tool.</p>
+
+<h1 id="Navigating-the-Consoles">Navigating the Consoles</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<h2 id="Arrow-Keys-and-Function-Keys">Arrow Keys and Function Keys</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The easiest way to move between virtual consoles is to use <code>Alt-Left</code> and <code>Alt-Right</code> to switch between adjacent consoles. Use <code>Alt-F1</code> through <code>Alt-F6</code> to jump directly to a virtual console. The <code>Ctrl-Alt-Fn</code> combo also works.</p>
+
+<h2 id="From-the-Command-Line">From the Command Line</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>The <code>chvt</code> command lets you switch from one virtual console to another. For example:</p>
+
+<pre><code> chvt 1</code></pre>
+
+<p>will switch to the first virtual console which often has messages from when the system booted. Of course, if you switch to a console that is not yet opened then you will have to use the arrow or function keys to get to a working one.</p>
+
+<h2 id="To-and-From-X-Windows">To and From X-Windows</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>If X-Windows has started then it usually starts in Virtual-Console-7. You can get to from Virtual-Console-6 with &lt;Alt-Right&gt; or from any virtual consoles with <code>Alt-F7</code> or <code>Ctrl-Alt-F7</code>.</p>
+
+<p>To get back to the virtual consoles from X-Windows, you <i>must</i> use the <code>Ctrl-Alt-Fn</code> combinations. They other combinations will not work when you are in X-Windows.</p>
+
+<p>The <code>chvt</code> command works from within X-Windows but you need to run it as root if you are in X-Windows.</p>
+
+<h2 id="Inside-of-VirtualBox">Inside of VirtualBox</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>If you are running VirtualBox, use the <i>Host</i> key (by default, this is the right <code>Ctrl</code> key) combined with <code>F1</code> to <code>F7</code> to get to a virtual console (or back to X-Windows). You can&#39;t use the <code>Ctrl-Alt</code> combos because these will take you to the virtual consoles on the <i>host system</i>. Once you are in a virtual console in VirtualBox you can use the standard <code>Alt-Left</code>, <code>Alt-Right</code>, and <code>Alt-Fn</code> combos.</p>
+
+<h1 id="Scroll-buffer">Scroll buffer</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Use <code>Shift-PageUp</code> to see some of the lines that have scrolled off of the top of a virtual console. Once you switch consoles, or switch to X-Windows, this information is lost.</p>
+
+<h1 id="Select-Theme">Select Theme</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Certain antiX kernels have the fbcondecor feature (sometimes called &quot;splash&quot;) that lets you give the virtual consoles background images.</p>
+
+<p>In <b><i>antiX-14</i></b> you can use the <code>splash-select</code> program inside of a virtual console to change the theme on the current console.</p>
+
+<h1 id="Different-Theme-on-each-Console">Different Theme on each Console</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>The <code>/sbin/splash-all</code> is called from <code>/etc/rc.local</code> to put a different theme on each virtual console on the Live system. You can select a different set of themes by passing them in as command line arguments. For example:</p>
+
+<pre><code>  /sbin/spash-all 2:antiX-blue 3:antiX-rev-purple</code></pre>
+
+<p>Will set the themes on the second and third virtual consoles. The themes are all under the <code>/etc/splash/</code> directory.</p>
+
+<h1 id="Boot-Parameters">Boot Parameters</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Boot parameters can be used to disable X-Windows and to set the resolution of the virtual consoles.</p>
+
+<h2 id="The-Boot-Parameter">The <code>vga</code> Boot Parameter</h2>
+<div class="to-top-2"><a href="#">top</a></div>
+
+<p>If you have a modern graphics card from certain manufacturers then the resolution of the virtual consoles may get automatically set to the maximum possible. Here is a table of some VGA resolutions. Not all resolutions are available on all systems.</p>
+
+<pre><code>  Width   Height  VGA parameter
+   800      600        789
+  1024      640        877
+  1024      768        792
+  1152      720        872
+  1280      800        864
+  1280     1024        795
+  1440      900        867
+  1400     1050        834
+  1600     1200        799
+  1600     1200*       839</code></pre>
+
+<p>The <code>839</code> value is known to work in VirtualBox. The <code>799</code> has been published in several places but it does not work in VirtualBox and has not been tested by us in other situations.</p>
+
+<h1 id="Special-Features">Special Features</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<dl>
+
+<dt>Mouse Support</dt>
+<dd>
+
+<p>You can enable mouse support in the virtual consoles with the gpm (general purpose mouse) service.</p>
+
+</dd>
+<dt>Movies and Images</dt>
+<dd>
+
+<p>You can display images and even watch movies in the virtual consoles when they have framebuffer support which is enabled with the <code>vga</code> boot parameter.</p>
+
+</dd>
+</dl>
+
+<h1 id="Copyright">Copyright</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Copyright 1014 BitJam for antiX <a href="http://antix.freeforums.org/">http://antix.freeforums.org/</a></p>
+
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    2014-11-13 12:59
+
+  </div>
+
+  <div id="footer-center">
+  antiX Documentation
+  </div>
+
+</div>
+
+</body>
+</html>
+
+

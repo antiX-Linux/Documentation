@@ -1,0 +1,235 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>desktop-defaults - antiX Documentation</title>
+<link rel="stylesheet" href="css/pod.css" type="text/css" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon" />
+</head>
+
+<body>
+<div id="header">
+<ul id="nav_menu">
+  <li><a href="./">Index</a></li>
+  <li><a href="http://antix.freeforums.org/">Forums</a></li>
+  <li><a href="FAQ.html">FAQ</a></li>
+  <li><a href="about.html">About antiX</a></li>
+</ul>
+
+<div id="logo">
+  <img src="images/antix-logo-3.png" width="110" height="89" title="antiX: lean and mean!"
+  border="0" alt="antiX"/>
+</div>
+
+<div id="banner-text">
+    <div id="banner-title">antiX Documentation</div>
+</div>
+</div>
+
+
+
+<ul id="index">
+  <li><a href="#Synopsis">Synopsis</a></li>
+  <li><a href="#How-to-Use">How to Use</a></li>
+  <li><a href="#Setting-Defaults">Setting Defaults</a></li>
+  <li><a href="#Running-defaults">Running defaults</a>
+    <ul>
+      <li>
+        <ul>
+          <li><a href="#Options">Options</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#License">License</a></li>
+  <li><a href="#Copyright">Copyright</a></li>
+</ul>
+
+<p>desktop-defaults - Utility / wrapper to set and start default applications</p>
+
+<h1 id="Synopsis">Synopsis</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>This program is a standalone utility or a wrapper depending on the implementation. It is meant to allow the user to set an application as the default application in only one spot for all applications.</p>
+
+<h1 id="How-to-Use">How to Use</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>To use run desktop-defaults-set and choose the appropiate .desktop files for the programs that you would like to see as the default for each heading. After selecting the default programs, you can call them by running desktop-defaults-run --ITEM</p>
+
+<h1 id="Setting-Defaults">Setting Defaults</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Run desktop-defaults-set. For each item choose the appropriate .desktop file. Normally these reside in /usr/share/applications... but the potentially could be anywhere in the system.</p>
+
+<p>Examples of such cases:</p>
+
+<dl>
+
+<dt>Custom.desktop</dt>
+<dd>
+
+<p>If you make a custom .desktop file ( utilizing the new &quot;Personal&quot; menu ) you would be able to navigate to that directory and choose your Custom.desktop file as the default.</p>
+
+</dd>
+<dt>Custom applications</dt>
+<dd>
+
+<p>If you install an custom application, home grown or packaged in another method (usually apps in /opt). You can utilize a .desktop file that is related to the applications. A common one is Firefox (/opt/firefox) for default web browser.</p>
+
+</dd>
+</dl>
+
+<p>Press &quot;OK&quot; to set the defaults, &quot;Cancel&quot; to continue to use the global settings (or older user settings).</p>
+
+<h1 id="Running-defaults">Running defaults</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Defaults can be run via the desktop-defaults-run program. However desktop-defaults-set also attempt to change the mimetype files to allow for your chosen application to work in your file manager as well for matching mime types.</p>
+
+<h3 id="Options">Options</h3>
+
+<dl>
+
+<dt>desktop-defaults-run -h</dt>
+<dd>
+
+<p>View the help information (also displayed on this page via the following options)</p>
+
+</dd>
+<dt>desktop-defaults-run -fm | --file-manager</dt>
+<dd>
+
+<p>Run the default chosen file manager.</p>
+
+<p>Please note that by default the file manager default matches the session chosen. So if rox-xxxx was choosen the default file manager will be rox. If space-xxxx was chosen, the default file manager will be spacefm. If no icon manager was chosen, the default will be the chosen one. This can be overridden with /etc/desktop-session/desktop-defaults.conf (~/.desktop-session/desktop-defaults.conf for per user settings).</p>
+
+<p>Setting</p>
+
+<pre><code> OVERRIDE_SESSION_FM=&quot;X&quot;</code></pre>
+
+<p>To either</p>
+
+<pre><code> OVERRIDE_SESSION_FM=&quot;true&quot;</code></pre>
+
+<p>to override the session selected file manager and use your choice only! OR</p>
+
+<pre><code> OVERRIDE_SESSION_FM=&quot;false&quot;</code></pre>
+
+<p>to follow the session selected file manager</p>
+
+</dd>
+<dt>desktop-defaults-run -t | --terminal</dt>
+<dd>
+
+<p>Run the default chosen terminal application</p>
+
+</dd>
+<dt>desktop-defaults-run -e | --email</dt>
+<dd>
+
+<p>Run The default chosen email client (or webpage if custom .desktop setup)</p>
+
+</dd>
+<dt>desktop-defaults-run -te | --text-editor</dt>
+<dd>
+
+<p>Run the default chosen text editor</p>
+
+</dd>
+<dt>desktop-defaults-run -b | --browser</dt>
+<dd>
+
+<p>Run the default chosen web browser</p>
+
+</dd>
+<dt>desktop-defaults-run -i | --images</dt>
+<dd>
+
+<p>Run the default chosen image viewer</p>
+
+</dd>
+<dt>desktop-defaults-run -v | --video</dt>
+<dd>
+
+<p>Run the default chosen video player</p>
+
+</dd>
+<dt>desktop-defaults-run -a | --audio</dt>
+<dd>
+
+<p>Run the default chosen audio player</p>
+
+</dd>
+<dt>desktop-defaults-run -r | --root</dt>
+<dd>
+
+<p>Precede any of the above options to run the option as root user (requires gksu) Examples:</p>
+
+<pre><code> desktop-defaults-run -r -t 
+ desktop-defaults-run --root --terminal</code></pre>
+
+</dd>
+<dt>Extra command strings</dt>
+<dd>
+
+<p>All options can take 2nd/3rd + option for when running a default. This becomes particularily handy for things like when you want to open a webpage with your default web browser (custom email.desktop file), or open a file as root with your default text editor.</p>
+
+<p>Example:</p>
+
+<pre><code> desktop-defaults-run -b http://antix.freeforums.org</code></pre>
+
+<p>open the forum in your default browser</p>
+
+<pre><code> desktop-defaults-run -r -b http://localhost:631 (B&lt;Not recomended&gt;)</code></pre>
+
+<p>open the printer configuration in root browser</p>
+
+<pre><code> desktop-defaults-run -te ~/.desktop-session/desktop-defaults.conf</code></pre>
+
+<p>open desktop-defaults.conf as user for user configuration</p>
+
+<pre><code> desktop-defaults-run -r -te /etc/desktop-session/desktop-defaults.conf</code></pre>
+
+<p>open desktop-defaults.conf as root for global configuration</p>
+
+</dd>
+</dl>
+
+<h1 id="License">License</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>All code is licensed under the <a href="https://www.gnu.org/copyleft/gpl.html">GPL-v3</a> or later.</p>
+
+<h1 id="Copyright">Copyright</h1>
+<div class="to-top-1"><a href="#">top</a></div>
+
+<p>Copyright 2014 Dave for antiX <a href="http://antix.freeforums.org/">http://antix.freeforums.org/</a></p>
+
+<div id="last-div">
+
+</div>
+
+<br/>
+<br/>
+
+<div id="footer">
+  <div id="footer-left">
+    Version: 2.0.0
+  </div>
+  <div id="footer-right">
+    2014-11-13 23:04
+
+  </div>
+
+  <div id="footer-center">
+  antiX Documentation
+  </div>
+
+</div>
+
+</body>
+</html>
+
+

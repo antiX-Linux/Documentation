@@ -1,0 +1,92 @@
+=encoding utf8
+
+=head1 NAME
+
+splash-select -- choose background image for virtual console
+
+=head1 SYNOPSIS
+
+This program displays available console themes in a grid.  Use the arrow
+keys and [Home] and [End] to select a theme.  Then press [Enter].
+
+
+=head1 KEYS
+
+=over
+
+=item B<A>
+
+Clear and redraw the screen
+
+=item B<a>
+
+Redraw the screen
+
+=item B<C>
+
+(uppercase C) Change text alignment
+
+=item B<c>
+
+(lowercase c) Cycle through color schemes
+
+=item B<h,H>
+
+Show some simple help
+
+
+=item B<k,K>
+
+Debug keystrokes
+
+=item B<q,Q>
+
+Quit the program
+
+=item B<r,R>
+
+Restart
+
+=item B<s,S>
+
+Show screen size
+
+=back
+
+=head1 ENVIRONMENT
+
+=over
+
+=item DEBUG
+
+create a copious log file either in the home directory or
+in /var/log.
+
+=item FB_RES
+
+If the fbres program is missing then use this to inform the
+program of the console resolution. Example:
+
+ FB_RES=1024x768
+
+=item HEIGHT
+
+pretend the screen is HEIGHT characters high
+
+
+=item WIDTH
+
+pretend the screen is WIDTH characters wide
+
+
+=back
+
+=head1 LICENSE
+
+All code is licensed under the 
+L<GPL-v3|https://www.gnu.org/copyleft/gpl.html> or later.
+
+=head1 COPYRIGHT
+
+Copyright 1014
+BitJam for antiX L<http://antix.freeforums.org/>
