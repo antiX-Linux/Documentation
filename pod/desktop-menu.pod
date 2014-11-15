@@ -7,7 +7,7 @@ desktop-menu - Utility to build window manager menus
 =head1 SYNOPSIS
 
 This program is a utility to automatically build menus for various window 
-managers. 
+managers. blahblah not finished
 
 
 =head1 How to Use
